@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Group extends AbstractEntity {
     private String name;
-    private List<Student> group;
+    private List<Student> students;
 
     public Group(String name, List<Student> group) {
         this.name = name;
-        this.group = group;
+        this.students = group;
     }
 
     public String getName() {
@@ -19,12 +19,12 @@ public class Group extends AbstractEntity {
         this.name = name;
     }
 
-    public List<Student> getGroup() {
-        return group;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setGroup(List<Student> group) {
-        this.group = group;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
 }

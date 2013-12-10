@@ -1,8 +1,8 @@
 package com.testapp.model.entities;
 
 public class Person extends AbstractEntity {
-    String name;
-    String surname;
+    private String name;
+    private String surname;
 
     public String getSurname() {
         return surname;
