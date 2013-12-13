@@ -8,6 +8,11 @@ public class Subject extends AbstractEntity {
     private Tutor tutors;
     private List<Student> students;
 
+    public Subject(String name) {
+        super();
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
