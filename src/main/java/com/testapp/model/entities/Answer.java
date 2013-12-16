@@ -7,10 +7,10 @@ public class Answer extends AbstractEntity {
     private boolean isRight;
     @javax.persistence.Transient
     private boolean isChosen;
-    private Question question;
 
-    public Answer(String content) {
+    public Answer(String content, boolean isRight) {
         this.content = content;
+        this.isRight = isRight;
     }
 
     public String getContent() {
@@ -37,11 +37,4 @@ public class Answer extends AbstractEntity {
         this.isChosen = isChosen;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
 }
