@@ -1,16 +1,14 @@
 package com.testapp.model.dao.impl;
 
 import com.testapp.model.dao.AnswerDAO;
+import com.testapp.model.dao.GenericDao;
 import com.testapp.model.entities.Answer;
 import com.testapp.model.util.MyDataSource;
 
 import java.io.IOException;
 import java.sql.*;
 
-/**
- * Created by Somebody on 16.12.13.
- */
-public class AnswerDAOImpl implements AnswerDAO {
+public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements AnswerDAO {
     @Override
     public void add(Answer answer) {
         Connection connection = null;
@@ -41,28 +39,7 @@ public class AnswerDAOImpl implements AnswerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (generatedKeys != null) {
-                try {
-                    generatedKeys.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            super.closeEverything(generatedKeys,preparedStatement,connection);
         }
     }
 
@@ -89,28 +66,7 @@ public class AnswerDAOImpl implements AnswerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            super.closeEverything(resultSet,preparedStatement,connection);
         }
         return answer;
     }
@@ -134,21 +90,7 @@ public class AnswerDAOImpl implements AnswerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+           super.closeSC(preparedStatement,connection);
         }
     }
 
@@ -168,21 +110,7 @@ public class AnswerDAOImpl implements AnswerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+          super.closeSC(preparedStatement,connection);
         }
     }
 }
