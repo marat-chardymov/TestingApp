@@ -1,8 +1,8 @@
 package com.testapp.model.entities;
 
-public class TestResults extends AbstractEntity{
+public class QuizResults extends AbstractEntity{
     private int score;
-    private Test test;
+    private Quiz quiz;
     private Student student;
 
     public int getScore() {
@@ -13,12 +13,12 @@ public class TestResults extends AbstractEntity{
         this.score = score;
     }
 
-    public Test getTest() {
-        return test;
+    public Quiz getQuiz() {
+        return quiz;
     }
 
-    public void setTest(Test test) {
-        this.test = test;
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 
     public Student getStudent() {

@@ -1,14 +1,13 @@
 package com.testapp.model.dao.impl;
 
-import com.testapp.model.dao.AnswerDAO;
-import com.testapp.model.dao.GenericDao;
+import com.testapp.model.dao.IAnswerDAO;
 import com.testapp.model.entities.Answer;
 import com.testapp.model.util.MyDataSource;
 
 import java.io.IOException;
 import java.sql.*;
 
-public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements AnswerDAO {
+public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements IAnswerDAO {
     @Override
     public void add(Answer answer) {
         Connection connection = null;

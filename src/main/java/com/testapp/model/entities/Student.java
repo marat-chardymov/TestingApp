@@ -3,15 +3,15 @@ package com.testapp.model.entities;
 import java.util.List;
 
 public class Student extends Person {
-    private List<TestResults> testResultsList;
+    private List<QuizResults> quizResultsList;
     private List<Subject> subjects;
 
-    public List<TestResults> getTestResultsList() {
-        return testResultsList;
+    public List<QuizResults> getQuizResultsList() {
+        return quizResultsList;
     }
 
-    public void setTestResultsList(List<TestResults> testResultsList) {
-        this.testResultsList = testResultsList;
+    public void setQuizResultsList(List<QuizResults> quizResultsList) {
+        this.quizResultsList = quizResultsList;
     }
 
     public List<Subject> getSubjects() {

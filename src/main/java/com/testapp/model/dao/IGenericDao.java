@@ -1,6 +1,6 @@
 package com.testapp.model.dao;
 
-public interface GenericDao<T> {
+public interface IGenericDao<T> {
 
     /**
      * Make an instance managed and persistent.

@@ -26,12 +26,12 @@
             <artifactId>c3p0</artifactId>
             <version>0.9.1.2</version>
         </dependency>
-        <!-- Test -->
+        <!-- Quiz -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
+            <scope>quiz</scope>
         </dependency>
         <!-- JPA interfaces -->
         <dependency>
