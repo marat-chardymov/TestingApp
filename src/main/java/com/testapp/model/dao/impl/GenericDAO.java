@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class GenericDAOImpl<T> implements IGenericDao<T> {
+public abstract class GenericDAO<T> implements IGenericDao<T> {
     public static void closeEverything(ResultSet rs, Statement stmt,
                                        Connection con) {
         if (rs != null) {

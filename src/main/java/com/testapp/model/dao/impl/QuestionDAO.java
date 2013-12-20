@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
-public class QuestionDAOImpl extends GenericDAOImpl<Question> implements IQuestionDAO {
+public class QuestionDAO extends GenericDAO<Question> implements IQuestionDAO {
 
     @Override
     public List<Question> findQuestionsByTestId(Long id) {
@@ -45,7 +45,7 @@ public class QuestionDAOImpl extends GenericDAOImpl<Question> implements IQuesti
                 throw new SQLException("Creating question failed, no generated key obtained.");
             }
             //here we persist answers for this question
-            IAnswerDAO answerDAO = new AnswerDAOImpl();
+            IAnswerDAO answerDAO = new AnswerDAO();
             for (Answer answer : question.getAnswers()) {
                 answerDAO.add(answer);
             }

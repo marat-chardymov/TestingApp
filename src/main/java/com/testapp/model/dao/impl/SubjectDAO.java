@@ -1,27 +1,27 @@
 package com.testapp.model.dao.impl;
 
-import com.testapp.model.dao.IAnswerDAO;
+import com.testapp.model.dao.ISubjectDAO;
 import com.testapp.model.entities.Answer;
+import com.testapp.model.entities.Subject;
 import com.testapp.model.util.MyDataSource;
 
 import java.io.IOException;
 import java.sql.*;
 
-public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements IAnswerDAO {
+public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @Override
-    public void add(Answer answer) {
+    public void add(Subject subject) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet generatedKeys = null;
         try {
             MyDataSource ds = MyDataSource.getInstance();
             connection = ds.getConnection();
-            String insertTableSQL = "INSERT INTO answers"
-                    + "(content, is_right) VALUES"
-                    + "(?,?)";
+            String insertTableSQL = "INSERT INTO subjects"
+                    + "(name) VALUES"
+                    + "(?)";
             preparedStatement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, answer.getContent());
-            preparedStatement.setBoolean(2, answer.isRight());
+            preparedStatement.setString(1, subject.getName());
             //we are trying to get id of inserted record
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
@@ -29,7 +29,7 @@ public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements IAnswerDAO 
             }
             generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                answer.setId(generatedKeys.getLong(1));
+                subject.setId(generatedKeys.getLong(1));
             } else {
                 throw new SQLException("Creating answer failed, no generated key obtained.");
             }
@@ -43,12 +43,12 @@ public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements IAnswerDAO 
     }
 
     @Override
-    public Answer find(Long id) {
-        Answer answer = null;
+    public Subject find(Long id) {
+        Subject subject = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String findRecordSQL = "SELECT * FROM answers WHERE  answer_id=?";
+        String findRecordSQL = "SELECT * FROM subjects WHERE  subject_id=?";
         try {
             MyDataSource ds = MyDataSource.getInstance();
             connection = ds.getConnection();
@@ -56,9 +56,8 @@ public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements IAnswerDAO 
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                String content = resultSet.getString("content");
-                Boolean isRight = resultSet.getBoolean("is_right");
-                answer = new Answer(content, isRight);
+                String name = resultSet.getString("name");
+                subject = new Subject(name);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,29 +66,27 @@ public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements IAnswerDAO 
         } finally {
             super.closeEverything(resultSet,preparedStatement,connection);
         }
-        return answer;
+        return subject;
     }
 
     @Override
-    public void update(Answer answer) {
+    public void update(Subject subject) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String updateRecordSQL = "UPDATE answers SET content=?,is_right=? WHERE answer_id=?";
+        String updateRecordSQL = "UPDATE subjects SET name=? WHERE subject_id=?";
         try {
             MyDataSource ds = MyDataSource.getInstance();
             connection = ds.getConnection();
             preparedStatement = connection.prepareStatement(updateRecordSQL);
-            preparedStatement.setString(1, answer.getContent());
-            preparedStatement.setBoolean(2, answer.isRight());
-            preparedStatement.setLong(3, answer.getId());
+            preparedStatement.setString(1, subject.getName());
+            preparedStatement.setLong(2, subject.getId());
             preparedStatement.executeUpdate();
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-           super.closeSC(preparedStatement,connection);
+            super.closeSC(preparedStatement,connection);
         }
     }
 
@@ -97,7 +94,7 @@ public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements IAnswerDAO 
     public void delete(Long id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String deleteRecordSQL = "DELETE FROM answers WHERE answer_id=?";
+        String deleteRecordSQL = "DELETE FROM subjects WHERE subject_id=?";
         try {
             MyDataSource ds = MyDataSource.getInstance();
             connection = ds.getConnection();
@@ -109,7 +106,7 @@ public class AnswerDAOImpl extends GenericDAOImpl<Answer> implements IAnswerDAO 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-          super.closeSC(preparedStatement,connection);
+            super.closeSC(preparedStatement,connection);
         }
     }
 }
