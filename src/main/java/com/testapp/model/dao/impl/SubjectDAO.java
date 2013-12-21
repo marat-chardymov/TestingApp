@@ -1,12 +1,13 @@
 package com.testapp.model.dao.impl;
 
 import com.testapp.model.dao.ISubjectDAO;
-import com.testapp.model.entities.Answer;
 import com.testapp.model.entities.Subject;
 import com.testapp.model.util.MyDataSource;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @Override
@@ -38,7 +39,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            super.closeEverything(generatedKeys,preparedStatement,connection);
+            super.closeEverything(generatedKeys, preparedStatement, connection);
         }
     }
 
@@ -64,7 +65,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            super.closeEverything(resultSet,preparedStatement,connection);
+            super.closeEverything(resultSet, preparedStatement, connection);
         }
         return subject;
     }
@@ -86,7 +87,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            super.closeSC(preparedStatement,connection);
+            super.closeSC(preparedStatement, connection);
         }
     }
 
@@ -106,7 +107,33 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            super.closeSC(preparedStatement,connection);
+            super.closeSC(preparedStatement, connection);
         }
+    }
+
+    @Override
+    public List<Subject> findAll() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String findAllRecordsSQL = "SELECT name FROM subjects";
+        List<Subject> subjects = new ArrayList<Subject>();
+        try {
+            MyDataSource ds = MyDataSource.getInstance();
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(findAllRecordsSQL);
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String subjectName = rs.getString("name");
+                subjects.add(new Subject(subjectName));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (SQLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } finally {
+            super.closeEverything(rs, preparedStatement, connection);
+        }
+        return subjects;
     }
 }

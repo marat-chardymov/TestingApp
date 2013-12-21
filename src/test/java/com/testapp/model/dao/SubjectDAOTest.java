@@ -1,14 +1,12 @@
 package com.testapp.model.dao;
 
-import com.testapp.model.dao.impl.AnswerDAO;
 import com.testapp.model.dao.impl.SubjectDAO;
-import com.testapp.model.entities.Answer;
 import com.testapp.model.entities.Subject;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 
 public class SubjectDAOTest {
@@ -51,5 +49,15 @@ public class SubjectDAOTest {
         subjectDAO.delete(subject.getId());
         Subject deletedSubject = subjectDAO.find(subject.getId());
         assertNull(deletedSubject);
+    }
+
+    @Test
+    public void findAll() {
+        Subject subject = new Subject("test5");
+        ISubjectDAO subjectDAO = new SubjectDAO();
+        subjectDAO.add(subject);
+        List<Subject> subjectList = subjectDAO.findAll();
+        assertNotNull(subjectList);
+        assertEquals(false, subjectList.isEmpty());
     }
 }
