@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html>
-<body>
-<jsp:include page="includes/header.jsp" />
-<h2>Hello World! Русский язык</h2>
-</body>
-</html>
+<%@ include file="/includes/header.jsp" %>
+
+<div class="container hero-unit">
+    <h2>Hello World! Русский язык</h2>
+</div>
+
+<%@ include file="/includes/footer.jsp" %>
+

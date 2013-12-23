@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/subjects/*")
+//@WebServlet("/subjects/*")
 public class SubjectsController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -19,7 +19,11 @@ public class SubjectsController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SubjectDAO subjectDAO = new SubjectDAO();
-        List<Subject> subjectList = subjectDAO.findAll();
+        List<Subject> subjectList=subjectDAO.findAll();
+        for (Subject subject : subjectList) {
+            System.out.println(subject.getName());
+        }
+
         request.setAttribute("subjectList", subjectList );
         request.getRequestDispatcher("/jsp/subjects.jsp").forward(request, response);
     }

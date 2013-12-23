@@ -53,6 +53,9 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         try {
             MyDataSource ds = MyDataSource.getInstance();
             connection = ds.getConnection();
+            //String url = "jdbc:mysql://localhost:3306/testingappdb";
+            //Class.forName ("com.mysql.jdbc.Driver").newInstance ();
+            //connection = DriverManager.getConnection(url, "root", "sesame");
             preparedStatement = connection.prepareStatement(findRecordSQL);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -119,18 +122,25 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         String findAllRecordsSQL = "SELECT name FROM subjects";
         List<Subject> subjects = new ArrayList<Subject>();
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+//            MyDataSource ds = MyDataSource.getInstance();
+//            connection = ds.getConnection();
+            String url = "jdbc:mysql://localhost:3306/testingappdb";
+            Class.forName ("com.mysql.jdbc.Driver").newInstance ();
+            connection = DriverManager.getConnection(url, "root", "sesame");
             preparedStatement = connection.prepareStatement(findAllRecordsSQL);
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 String subjectName = rs.getString("name");
                 subjects.add(new Subject(subjectName));
             }
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }  catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         } finally {
             super.closeEverything(rs, preparedStatement, connection);
         }
