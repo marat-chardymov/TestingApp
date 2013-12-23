@@ -36,8 +36,8 @@ public class SubjectDAOTest {
         subjectDAO.add(subject);
         subject.setName("test3_updated");
         subjectDAO.update(subject);
-        subject = subjectDAO.find(subject.getId());
-        assertNotNull(subject);
+        Subject updated_subject = subjectDAO.find(subject.getId());
+        assertNotNull(updated_subject);
         assertEquals(subject.getName(), "test3_updated");
     }
 
