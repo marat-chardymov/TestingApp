@@ -4,8 +4,7 @@ import java.util.List;
 
 public class Subject extends AbstractEntity {
     private String name;
-    private List<Quiz> quizs;
-    private Tutor tutors;
+    private List<Quiz> quizzes;
     private List<Student> students;
 
     public Subject(String name) {
@@ -22,19 +21,11 @@ public class Subject extends AbstractEntity {
     }
 
     public List<Quiz> getQuizs() {
-        return quizs;
+        return quizzes;
     }
 
-    public void setQuizs(List<Quiz> quizs) {
-        this.quizs = quizs;
-    }
-
-    public Tutor getTutors() {
-        return tutors;
-    }
-
-    public void setTutors(Tutor tutors) {
-        this.tutors = tutors;
+    public void setQuizs(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
     }
 
     public List<Student> getStudents() {

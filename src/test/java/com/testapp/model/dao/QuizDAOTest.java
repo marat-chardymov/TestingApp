@@ -12,9 +12,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-/**
- * Created by Somebody on 19.12.13.
- */
 public class QuizDAOTest {
 
     @Test
@@ -39,7 +36,7 @@ public class QuizDAOTest {
         quizDAO.add(quiz);
         Quiz theSameQuiz = quizDAO.find(quiz.getId());
         assertNotNull(theSameQuiz);
-        assertEquals(quiz.getName(), "test_quiz2");
+        assertEquals(theSameQuiz.getName(), "test_quiz2");
     }
 
     @Test

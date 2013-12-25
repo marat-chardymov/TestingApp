@@ -7,10 +7,10 @@ public class Quiz extends AbstractEntity {
     private List<QuizResults> quizResultsList;
     private Long subjectId;
 
-    public Quiz(String name, Long fk_subject) {
+    public Quiz(String name, Long subjectId) {
         super();
         this.name = name;
-        this.subjectId=fk_subject;
+        this.subjectId = subjectId;
     }
 
     public String getName() {

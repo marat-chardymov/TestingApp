@@ -5,11 +5,11 @@ import java.util.List;
 public class Question extends AbstractEntity {
     private String content;
     private List<Answer> answers;
-    private Quiz quiz;
+    private Long quizId;
 
-    public Question(Quiz quiz, String content) {
+    public Question(String content, Long quizId) {
         super();
-        this.quiz = quiz;
+        this.quizId = quizId;
         this.content = content;
     }
 
@@ -29,11 +29,11 @@ public class Question extends AbstractEntity {
         this.answers = answers;
     }
 
-    public Quiz getQuiz() {
-        return quiz;
+    public Long getQuizId() {
+        return quizId;
     }
 
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
+    public void setQuizId(Long quizId) {
+        this.quizId = quizId;
     }
 }

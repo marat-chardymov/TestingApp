@@ -7,10 +7,12 @@ public class Answer extends AbstractEntity {
     private boolean isRight;
     @javax.persistence.Transient
     private boolean isChosen;
+    private Long questionId;
 
-    public Answer(String content, boolean isRight) {
+    public Answer(String content, boolean isRight, Long questionId) {
         this.content = content;
         this.isRight = isRight;
+        this.questionId = questionId;
     }
 
     public String getContent() {
@@ -37,4 +39,11 @@ public class Answer extends AbstractEntity {
         this.isChosen = isChosen;
     }
 
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
 }
