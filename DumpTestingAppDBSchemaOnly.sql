@@ -26,13 +26,13 @@ DROP TABLE IF EXISTS `answers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `answers` (
   `answer_id` int(11) NOT NULL AUTO_INCREMENT,
-  `fk_question_id` int(11) DEFAULT NULL,
   `content` text NOT NULL,
   `is_right` tinyint(1) NOT NULL,
+  `fk_question_id` int(11) NOT NULL,
   PRIMARY KEY (`answer_id`),
-  KEY `fk_answers_questions1_idx` (`fk_question_id`),
-  CONSTRAINT `fk_answers_questions1` FOREIGN KEY (`fk_question_id`) REFERENCES `questions` (`question_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8;
+  KEY `fk_answers_question1` (`fk_question_id`),
+  CONSTRAINT `fk_answers_question1` FOREIGN KEY (`fk_question_id`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=204 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,13 +43,13 @@ DROP TABLE IF EXISTS `questions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `questions` (
-  `question_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_quiz_id` int(11) NOT NULL,
   `content` text NOT NULL,
   PRIMARY KEY (`question_id`),
   KEY `fk_questions_tests1_idx` (`fk_quiz_id`),
   CONSTRAINT `fk_questions_tests1` FOREIGN KEY (`fk_quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,25 +65,8 @@ CREATE TABLE `quizzes` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`quiz_id`),
   KEY `fk_tests_subjects1_idx` (`fk_subject_id`),
-  CONSTRAINT `fk_tests_subjects1` FOREIGN KEY (`fk_subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `students`
---
-
-DROP TABLE IF EXISTS `students`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `students` (
-  `student_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
-  `surname` varchar(20) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`student_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_quizzes_subjects1` FOREIGN KEY (`fk_subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=185 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +80,7 @@ CREATE TABLE `subjects` (
   `subject_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`subject_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=273 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,34 +92,32 @@ DROP TABLE IF EXISTS `tests_results`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tests_results` (
   `test_results_id` int(11) NOT NULL AUTO_INCREMENT,
-  `fk_student_id` int(11) NOT NULL,
-  `fk_test_id` int(11) NOT NULL,
+  `fk_user_id` int(11) NOT NULL,
+  `fk_quiz_id` int(11) NOT NULL,
   `scores` int(11) NOT NULL,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`test_results_id`),
-  KEY `fk_tests_results_students_idx` (`fk_student_id`),
-  KEY `fk_tests_results_tests1_idx` (`fk_test_id`),
-  CONSTRAINT `fk_tests_results_students` FOREIGN KEY (`fk_student_id`) REFERENCES `students` (`student_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tests_results_tests1` FOREIGN KEY (`fk_test_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_tests_results_students_idx` (`fk_user_id`),
+  KEY `fk_tests_results_tests1_idx` (`fk_quiz_id`),
+  CONSTRAINT `fk_tests_results_students` FOREIGN KEY (`fk_user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tests_results_tests1` FOREIGN KEY (`fk_quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `tutors`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `tutors`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tutors` (
-  `tutor_id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `fk_subject_id` int(11) DEFAULT NULL,
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `surname` varchar(20) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`tutor_id`),
-  KEY `fk_tutors_subjects1_idx` (`fk_subject_id`),
-  CONSTRAINT `fk_tutors_subjects1` FOREIGN KEY (`fk_subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -149,4 +130,4 @@ CREATE TABLE `tutors` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-24 17:32:38
+-- Dump completed on 2013-12-26 12:39:19

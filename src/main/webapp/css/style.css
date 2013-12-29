@@ -1,0 +1,9 @@
+.table th, .table td {
+    padding: 0px;
+    padding-left: 15px;
+    vertical-align: middle;
+}
+
+form {
+    margin: 10px;
+}

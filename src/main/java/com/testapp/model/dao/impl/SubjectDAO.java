@@ -119,23 +119,26 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
-        String findAllRecordsSQL = "SELECT name FROM subjects";
+        String findAllRecordsSQL = "SELECT * FROM subjects";
         List<Subject> subjects = new ArrayList<Subject>();
         try {
 //            MyDataSource ds = MyDataSource.getInstance();
 //            connection = ds.getConnection();
             String url = "jdbc:mysql://localhost:3306/testingappdb";
-            Class.forName ("com.mysql.jdbc.Driver").newInstance ();
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(url, "root", "sesame");
             preparedStatement = connection.prepareStatement(findAllRecordsSQL);
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 String subjectName = rs.getString("name");
-                subjects.add(new Subject(subjectName));
+                Long id = rs.getLong("subject_id");
+                Subject subject = new Subject(subjectName);
+                subject.setId(id);
+                subjects.add(subject);
             }
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }  catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();

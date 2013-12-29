@@ -18,12 +18,13 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+
     <servlet>
-        <servlet-name>SubjectsController</servlet-name>
-        <servlet-class>com.testapp.controllers.SubjectsController</servlet-class>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>com.testapp.controllers.FrontController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SubjectsController</servlet-name>
+        <servlet-name>FrontController</servlet-name>
         <url-pattern>/subjects/*</url-pattern>
     </servlet-mapping>
 </web-app>

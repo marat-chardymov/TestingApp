@@ -5,7 +5,6 @@ import java.util.List;
 public class Subject extends AbstractEntity {
     private String name;
     private List<Quiz> quizzes;
-    private List<Student> students;
 
     public Subject(String name) {
         super();
@@ -28,11 +27,5 @@ public class Subject extends AbstractEntity {
         this.quizzes = quizzes;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
 }

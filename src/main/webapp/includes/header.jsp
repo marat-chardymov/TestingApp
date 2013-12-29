@@ -3,15 +3,16 @@
 <! DOCTYPE HTML>
 <html>
 <head>
-    <title>new Title</title>
+    <title>Quiz app</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
 </head>
 <body style="padding-top: 20px; ">
 <div class="container">
     <div class="navbar">
         <div class="navbar-inner">
-            <a class="brand" href="#">Testing App</a>
+            <a class="brand">Testing App</a>
             <ul class="nav">
                 <li <%if (request.getServletPath().contains("index.jsp")) {%>
                         class="active" <%}%> >
@@ -19,7 +20,7 @@
                 </li>
                 <li <%if (request.getServletPath().contains("subjects.jsp")) {%>
                         class="active" <%}%> >
-                    <a href="/subjects/">Subjects</a>
+                    <a href="/subjects">Subjects</a>
                 </li>
             </ul>
         </div>

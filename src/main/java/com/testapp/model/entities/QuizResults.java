@@ -3,7 +3,7 @@ package com.testapp.model.entities;
 public class QuizResults extends AbstractEntity{
     private int score;
     private Quiz quiz;
-    private Student student;
+    private User user;
 
     public int getScore() {
         return score;
@@ -21,11 +21,11 @@ public class QuizResults extends AbstractEntity{
         this.quiz = quiz;
     }
 
-    public Student getStudent() {
-        return student;
+    public User getUser() {
+        return user;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
