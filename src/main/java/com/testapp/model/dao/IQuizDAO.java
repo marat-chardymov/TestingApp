@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IQuizDAO extends IGenericDao<Quiz> {
     public List<Quiz> findBySubject(Subject subject);
+
+    public List<Quiz> findBySubjectId(Long subjectId);
 }

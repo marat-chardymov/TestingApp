@@ -16,7 +16,7 @@
             <ul class="nav">
                 <li <%if (request.getServletPath().contains("index.jsp")) {%>
                         class="active" <%}%> >
-                    <a href="../index.jsp">Home</a>
+                    <a href="../jsp/index.jsp">Home</a>
                 </li>
                 <li <%if (request.getServletPath().contains("subjects.jsp")) {%>
                         class="active" <%}%> >

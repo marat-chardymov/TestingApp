@@ -14,17 +14,11 @@ public class FrontController extends HttpServlet {
             Action action = ActionFactory.getAction(request);
             String view = action.execute(request, response);
 
-            String requestUri=request.getRequestURI().substring(1);
-            if (requestUri.endsWith("/")) {
-                //remove last slash character
-                requestUri = requestUri.substring(0, requestUri.length() - 1);
-            }
-
-            if (view.equals(requestUri)) {
-                request.getRequestDispatcher("jsp/" + view + ".jsp").forward(request, response);
-            } else {
-                response.sendRedirect(view); // We'd like to fire redirect in case of a view change as result of the action (PRG pattern).
-            }
+            //if (view.equals(request.getRequestURI().substring(1))) {
+                request.getRequestDispatcher("/jsp/" + view + ".jsp").forward(request, response);
+//            } else {
+//                response.sendRedirect(view); // We'd like to fire redirect in case of a view change as result of the action (PRG pattern).
+//            }
         } catch (Exception e) {
             throw new ServletException("Executing action failed.", e);
         }

@@ -1,5 +1,8 @@
 package com.testapp.controllers;
 
+import com.testapp.controllers.actions.home.HomeIndexAction;
+import com.testapp.controllers.actions.quistions.QuestionIndexAction;
+import com.testapp.controllers.actions.quizzes.QuizIndexAction;
 import com.testapp.controllers.actions.subjects.SubjectDeleteAction;
 import com.testapp.controllers.actions.subjects.SubjectIndexAction;
 
@@ -12,21 +15,16 @@ public class ActionFactory {
     public static Map<String, Action> actions = new HashMap<String, Action>();
 
     static {
-        //actions.put("POST/register", new RegisterAction());
-        //actions.put("POST/login", new LoginAction());
+        actions.put("GET/",new HomeIndexAction());
+
         actions.put("GET/subjects", new SubjectIndexAction());
         actions.put("POST/subjects/delete", new SubjectDeleteAction());
-        //actions.put("GET/",new IndexPageAction());
 
+        actions.put("GET/quizzes",new QuizIndexAction());
+        actions.put("GET/questions", new QuestionIndexAction());
     }
 
     public static Action getAction(HttpServletRequest request) {
-        String requestUri = request.getRequestURI();
-        if (requestUri.endsWith("/")) {
-            //remove last slash character
-            requestUri = requestUri.substring(0, requestUri.length() - 1);
-            return actions.get(request.getMethod() + requestUri);
-        } else
-            return actions.get(request.getMethod() + requestUri);
+        return actions.get(request.getMethod() + request.getRequestURI());
     }
 }

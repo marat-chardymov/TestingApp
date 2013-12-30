@@ -154,4 +154,39 @@ public class QuestionDAO extends GenericDAO<Question> implements IQuestionDAO {
         }
         return questions;
     }
+
+    @Override
+    public List<Question> findByQuiz(Long quizId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        List<Question> questions = new ArrayList<Question>();
+        String findRecordSQL = "SELECT * FROM questions WHERE  fk_quiz_id=?";
+        try {
+            MyDataSource ds = MyDataSource.getInstance();
+            connection = ds.getConnection();
+            //String url = "jdbc:mysql://localhost:3306/testingappdb";
+            //Class.forName ("com.mysql.jdbc.Driver").newInstance ();
+            //connection = DriverManager.getConnection(url, "root", "sesame");
+            preparedStatement = connection.prepareStatement(findRecordSQL);
+            preparedStatement.setLong(1, quizId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String content = resultSet.getString("content");
+                Long fkQuiz = resultSet.getLong("fk_quiz_id");
+                Question question = new Question(content, fkQuiz);
+                Long id=resultSet.getLong("question_id");
+                question.setId(id);
+                questions.add(question);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            super.closeEverything(resultSet, preparedStatement, connection);
+        }
+        return questions;
+    }
 }

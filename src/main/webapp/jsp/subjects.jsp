@@ -13,10 +13,10 @@
                             <button name="subjectId" value="${subject.id}" class="btn btn-danger">delete</button>
                         </form>
                     </td>
+                    <td><a href="quizzes?subject_id=${subject.id}" class="btn">get quizzes</a></td>
                 </tr>
             </c:forEach>
         </table>
-        asdf
     </div>
 </div>
 <%@ include file="/includes/footer.jsp" %>

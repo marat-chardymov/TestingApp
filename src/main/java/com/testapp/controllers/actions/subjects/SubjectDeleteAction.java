@@ -12,6 +12,6 @@ public class SubjectDeleteAction implements Action {
         SubjectDAO subjectDAO = new SubjectDAO();
         Long id = Long.valueOf(request.getParameter("subjectId"));
         subjectDAO.delete(id);
-        return "";
+        return "subjects";
     }
 }

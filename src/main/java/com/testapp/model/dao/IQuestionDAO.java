@@ -8,4 +8,5 @@ import java.util.List;
 public interface IQuestionDAO extends IGenericDao<Question> {
     //should return Question list for specific Quiz
     public List<Question> findByQuiz(Quiz quiz);
+    public List<Question> findByQuiz(Long quizId);
 }
