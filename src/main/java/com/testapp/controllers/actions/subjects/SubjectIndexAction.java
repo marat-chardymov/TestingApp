@@ -10,10 +10,10 @@ import java.util.List;
 
 public class SubjectIndexAction implements Action {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SubjectDAO subjectDAO = new SubjectDAO();
         List<Subject> subjectList = subjectDAO.findAll();
         request.setAttribute("subjectList", subjectList);
-        return "subjects";
+        request.getRequestDispatcher("/jsp/subjects.jsp").forward(request, response);
     }
 }

@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SubjectDeleteAction implements Action {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SubjectDAO subjectDAO = new SubjectDAO();
         Long id = Long.valueOf(request.getParameter("subjectId"));
         subjectDAO.delete(id);
-        return "subjects";
+        response.sendRedirect("/subjects"); // We'd like to fire redirect in case of a view change as result of the action (PRG pattern).
+
     }
 }

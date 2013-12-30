@@ -9,6 +9,7 @@
                     <td>${quiz.name}</td>
                     <td>${quiz.id}</td>
                     <td><a href="questions?quiz_id=${quiz.id}" class="btn">get questions</a></td>
+                    <td><a href="quizRun?quiz_id=${quiz.id}" class="btn btn-success">start quiz</a></td>
                 </tr>
             </c:forEach>
         </table>

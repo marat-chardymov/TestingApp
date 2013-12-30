@@ -12,11 +12,11 @@ import java.util.List;
 
 public class QuestionIndexAction implements Action {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         QuestionDAO questionDAO = new QuestionDAO();
         Long quizId = Long.valueOf(request.getParameter("quiz_id"));
         List<Question> questionList = questionDAO.findByQuiz(quizId);
         request.setAttribute("questionList", questionList);
-        return "questions";
+        request.getRequestDispatcher("/jsp/questions.jsp").forward(request, response);
     }
 }
