@@ -1,15 +1,19 @@
 package com.testapp.model.dao.impl;
 
 import com.testapp.model.dao.IGenericDao;
+import com.testapp.model.util.MyDataSource;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.IOException;
+import java.sql.*;
 
 public abstract class GenericDAO<T> implements IGenericDao<T> {
-    public static void closeEverything(ResultSet rs, Statement stmt,
-                                       Connection con) {
+
+    protected Connection connection = null;
+    protected PreparedStatement preparedStatement = null;
+    protected ResultSet resultSet = null;
+
+    protected void closeEverything(ResultSet rs, Statement stmt,
+                                   Connection con) {
         if (rs != null) {
             try {
                 rs.close();
@@ -29,8 +33,9 @@ public abstract class GenericDAO<T> implements IGenericDao<T> {
             }
         }
     }
-    public static void closeSC(Statement stmt,
-                               Connection con) {
+
+    protected void closeSC(Statement stmt,
+                           Connection con) {
         if (stmt != null) {
             try {
                 stmt.close();
@@ -43,5 +48,19 @@ public abstract class GenericDAO<T> implements IGenericDao<T> {
             } catch (SQLException e) {
             }
         }
+    }
+
+    protected Connection getConnection() {
+        MyDataSource ds = null;
+        Connection connection = null;
+        try {
+            ds = MyDataSource.getInstance();
+            connection = ds.getConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
     }
 }

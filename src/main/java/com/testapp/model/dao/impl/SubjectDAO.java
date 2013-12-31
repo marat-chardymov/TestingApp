@@ -12,12 +12,8 @@ import java.util.List;
 public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @Override
     public void add(Subject subject) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet generatedKeys = null;
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             String insertTableSQL = "INSERT INTO subjects"
                     + "(name) VALUES"
                     + "(?)";
@@ -28,34 +24,25 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
             if (affectedRows == 0) {
                 throw new SQLException("Creating answer failed, no rows affected.");
             }
-            generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                subject.setId(generatedKeys.getLong(1));
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                subject.setId(resultSet.getLong(1));
             } else {
                 throw new SQLException("Creating answer failed, no generated key obtained.");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            super.closeEverything(generatedKeys, preparedStatement, connection);
+            super.closeEverything(resultSet, preparedStatement, connection);
         }
     }
 
     @Override
     public Subject find(Long id) {
         Subject subject = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         String findRecordSQL = "SELECT * FROM subjects WHERE  subject_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
-            //String url = "jdbc:mysql://localhost:3306/testingappdb";
-            //Class.forName ("com.mysql.jdbc.Driver").newInstance ();
-            //connection = DriverManager.getConnection(url, "root", "sesame");
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -63,8 +50,6 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
                 String name = resultSet.getString("name");
                 subject = new Subject(name);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -75,18 +60,13 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
     @Override
     public void update(Subject subject) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         String updateRecordSQL = "UPDATE subjects SET name=? WHERE subject_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(updateRecordSQL);
             preparedStatement.setString(1, subject.getName());
             preparedStatement.setLong(2, subject.getId());
             preparedStatement.executeUpdate();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -96,17 +76,12 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
     @Override
     public void delete(Long id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         String deleteRecordSQL = "DELETE FROM subjects WHERE subject_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(deleteRecordSQL);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -116,22 +91,18 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
     @Override
     public List<Subject> findAll() {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-        String findAllRecordsSQL = "SELECT * FROM subjects";
+        String findAllRecordsSQL = "SELECT name,subject_id FROM subjects";
         List<Subject> subjects = new ArrayList<Subject>();
         try {
-//            MyDataSource ds = MyDataSource.getInstance();
-//            connection = ds.getConnection();
             String url = "jdbc:mysql://localhost:3306/testingappdb";
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(url, "root", "sesame");
+            //connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findAllRecordsSQL);
-            rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                String subjectName = rs.getString("name");
-                Long id = rs.getLong("subject_id");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String subjectName = resultSet.getString("name");
+                Long id = resultSet.getLong("subject_id");
                 Subject subject = new Subject(subjectName);
                 subject.setId(id);
                 subjects.add(subject);
@@ -145,7 +116,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } finally {
-            super.closeEverything(rs, preparedStatement, connection);
+            super.closeEverything(resultSet, preparedStatement, connection);
         }
         return subjects;
     }

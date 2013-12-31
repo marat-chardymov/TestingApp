@@ -13,12 +13,8 @@ import java.util.List;
 public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
     @Override
     public void add(Answer answer) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet generatedKeys = null;
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             String insertTableSQL = "INSERT INTO answers"
                     + "(content, is_right,fk_question_id) VALUES"
                     + "(?,?,?)";
@@ -31,31 +27,25 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
             if (affectedRows == 0) {
                 throw new SQLException("Creating answer failed, no rows affected.");
             }
-            generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                answer.setId(generatedKeys.getLong(1));
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                answer.setId(resultSet.getLong(1));
             } else {
                 throw new SQLException("Creating answer failed, no generated key obtained.");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            super.closeEverything(generatedKeys, preparedStatement, connection);
+            super.closeEverything(resultSet, preparedStatement, connection);
         }
     }
 
     @Override
     public Answer find(Long id) {
         Answer answer = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         String findRecordSQL = "SELECT * FROM answers WHERE  answer_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -63,12 +53,10 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
                 String content = resultSet.getString("content");
                 Boolean isRight = resultSet.getBoolean("is_right");
                 Long questionId = resultSet.getLong("fk_question_id");
-                answer = new Answer(content, isRight,questionId);
+                answer = new Answer(content, isRight, questionId);
                 Long answerId = resultSet.getLong("answer_id");
                 answer.setId(answerId);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -79,20 +67,15 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
 
     @Override
     public void update(Answer answer) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         String updateRecordSQL = "UPDATE answers SET content=?,is_right=? WHERE answer_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(updateRecordSQL);
             preparedStatement.setString(1, answer.getContent());
             preparedStatement.setBoolean(2, answer.isRight());
             preparedStatement.setLong(3, answer.getId());
             preparedStatement.executeUpdate();
 
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -102,17 +85,12 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
 
     @Override
     public void delete(Long id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         String deleteRecordSQL = "DELETE FROM answers WHERE answer_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(deleteRecordSQL);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -122,32 +100,22 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
 
     @Override
     public List<Answer> findByQuestion(Question question) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
         List<Answer> answers = new ArrayList<Answer>();
         String findRecordSQL = "SELECT * FROM answers WHERE  fk_question_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
-            //String url = "jdbc:mysql://localhost:3306/testingappdb";
-            //Class.forName ("com.mysql.jdbc.Driver").newInstance ();
-            //connection = DriverManager.getConnection(url, "root", "sesame");
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
             preparedStatement.setLong(1, question.getId());
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String content = resultSet.getString("content");
-                Boolean isRight=resultSet.getBoolean("is_right");
+                Boolean isRight = resultSet.getBoolean("is_right");
                 Long fkQuestion = resultSet.getLong("fk_question_id");
-                Answer answer = new Answer(content,isRight, fkQuestion);
+                Answer answer = new Answer(content, isRight, fkQuestion);
                 Long answerId = resultSet.getLong("answer_id");
                 answer.setId(answerId);
                 answers.add(answer);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

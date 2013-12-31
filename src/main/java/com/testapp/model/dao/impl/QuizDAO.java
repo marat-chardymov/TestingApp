@@ -13,12 +13,8 @@ import java.util.List;
 public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
     @Override
     public void add(Quiz quiz) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet generatedKeys = null;
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             String insertTableSQL = "INSERT INTO quizzes"
                     + "(name,fk_subject_id) VALUES"
                     + "(?,?)";
@@ -30,34 +26,25 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
             if (affectedRows == 0) {
                 throw new SQLException("Creating answer failed, no rows affected.");
             }
-            generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                quiz.setId(generatedKeys.getLong(1));
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                quiz.setId(resultSet.getLong(1));
             } else {
                 throw new SQLException("Creating answer failed, no generated key obtained.");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            super.closeEverything(generatedKeys, preparedStatement, connection);
+            super.closeEverything(resultSet, preparedStatement, connection);
         }
     }
 
     @Override
     public Quiz find(Long id) {
         Quiz quiz = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         String findRecordSQL = "SELECT * FROM quizzes WHERE  quiz_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
-            //String url = "jdbc:mysql://localhost:3306/testingappdb";
-            //Class.forName ("com.mysql.jdbc.Driver").newInstance ();
-            //connection = DriverManager.getConnection(url, "root", "sesame");
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -66,8 +53,6 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
                 Long fk_subject = resultSet.getLong("fk_subject_id");
                 quiz = new Quiz(name, fk_subject);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -78,18 +63,13 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
 
     @Override
     public void update(Quiz quiz) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         String updateRecordSQL = "UPDATE quizzes SET name=? WHERE quiz_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(updateRecordSQL);
             preparedStatement.setString(1, quiz.getName());
             preparedStatement.setLong(2, quiz.getId());
             preparedStatement.executeUpdate();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -99,17 +79,12 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
 
     @Override
     public void delete(Long id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         String deleteRecordSQL = "DELETE FROM quizzes WHERE quiz_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(deleteRecordSQL);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -119,18 +94,10 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
 
     @Override
     public List<Quiz> findBySubject(Subject subject) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
         List<Quiz> quizzes = new ArrayList<Quiz>();
         String findRecordSQL = "SELECT * FROM quizzes WHERE  fk_subject_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
-            //String url = "jdbc:mysql://localhost:3306/testingappdb";
-            //Class.forName ("com.mysql.jdbc.Driver").newInstance ();
-            //connection = DriverManager.getConnection(url, "root", "sesame");
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
             preparedStatement.setLong(1, subject.getId());
             resultSet = preparedStatement.executeQuery();
@@ -140,8 +107,6 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
                 Quiz quiz = new Quiz(name, fk_subject);
                 quizzes.add(quiz);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -152,18 +117,10 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
 
     @Override
     public List<Quiz> findBySubjectId(Long subjectId) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
         List<Quiz> quizzes = new ArrayList<Quiz>();
         String findRecordSQL = "SELECT * FROM quizzes WHERE  fk_subject_id=?";
         try {
-            MyDataSource ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
-            //String url = "jdbc:mysql://localhost:3306/testingappdb";
-            //Class.forName ("com.mysql.jdbc.Driver").newInstance ();
-            //connection = DriverManager.getConnection(url, "root", "sesame");
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
             preparedStatement.setLong(1, subjectId);
             resultSet = preparedStatement.executeQuery();
@@ -175,8 +132,6 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
                 quiz.setId(quizId);
                 quizzes.add(quiz);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
