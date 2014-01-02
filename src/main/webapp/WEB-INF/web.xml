@@ -21,6 +21,14 @@
         <servlet-name>FrontController</servlet-name>
         <url-pattern>/questions/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/quizRun/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/quizResult/*</url-pattern>
+    </servlet-mapping>
 
     <welcome-file-list>
         <welcome-file>/jsp/index.jsp</welcome-file>

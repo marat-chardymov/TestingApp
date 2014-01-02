@@ -13,6 +13,5 @@ public class SubjectDeleteAction implements Action {
         Long id = Long.valueOf(request.getParameter("subjectId"));
         subjectDAO.delete(id);
         response.sendRedirect("/subjects"); // We'd like to fire redirect in case of a view change as result of the action (PRG pattern).
-
     }
 }

@@ -112,7 +112,7 @@ public class QuestionDAOTest {
         questionDAO.add(question2);
         questionDAO.add(question3);
 
-        List<Question> foundedQuestions = questionDAO.findByQuiz(quiz);
+        List<Question> foundedQuestions = questionDAO.findByQuizId(quiz.getId());
         assertNotNull(foundedQuestions);
         for (Question fquestion : foundedQuestions) {
             assertEquals(fquestion.getQuizId(), quiz.getId());

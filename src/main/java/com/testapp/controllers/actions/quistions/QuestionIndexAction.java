@@ -15,7 +15,7 @@ public class QuestionIndexAction implements Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         QuestionDAO questionDAO = new QuestionDAO();
         Long quizId = Long.valueOf(request.getParameter("quiz_id"));
-        List<Question> questionList = questionDAO.findByQuiz(quizId);
+        List<Question> questionList = questionDAO.findByQuizId(quizId);
         request.setAttribute("questionList", questionList);
         request.getRequestDispatcher("/jsp/questions.jsp").forward(request, response);
     }

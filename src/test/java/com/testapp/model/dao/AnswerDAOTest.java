@@ -141,7 +141,7 @@ public class AnswerDAOTest {
         answerDAO.add(answer2);
         answerDAO.add(answer3);
 
-        List<Answer> foundedAnswers = answerDAO.findByQuestion(question);
+        List<Answer> foundedAnswers = answerDAO.findByQuestionId(question.getId());
         assertNotNull(foundedAnswers);
         for (Answer answer : foundedAnswers) {
             assertEquals(answer.getQuestionId(),question.getId());

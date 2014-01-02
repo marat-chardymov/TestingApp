@@ -99,13 +99,13 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
     }
 
     @Override
-    public List<Answer> findByQuestion(Question question) {
+    public List<Answer> findByQuestionId(Long questionId) {
         List<Answer> answers = new ArrayList<Answer>();
         String findRecordSQL = "SELECT * FROM answers WHERE  fk_question_id=?";
         try {
             connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
-            preparedStatement.setLong(1, question.getId());
+            preparedStatement.setLong(1, questionId);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String content = resultSet.getString("content");

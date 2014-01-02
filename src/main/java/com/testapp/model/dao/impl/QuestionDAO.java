@@ -98,30 +98,7 @@ public class QuestionDAO extends GenericDAO<Question> implements IQuestionDAO {
     }
 
     @Override
-    public List<Question> findByQuiz(Quiz quiz) {
-        List<Question> questions = new ArrayList<Question>();
-        String findRecordSQL = "SELECT * FROM questions WHERE  fk_quiz_id=?";
-        try {
-            connection = super.getConnection();
-            preparedStatement = connection.prepareStatement(findRecordSQL);
-            preparedStatement.setLong(1, quiz.getId());
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String content = resultSet.getString("content");
-                Long fkQuiz = resultSet.getLong("fk_quiz_id");
-                Question question = new Question(content, fkQuiz);
-                questions.add(question);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            super.closeEverything(resultSet, preparedStatement, connection);
-        }
-        return questions;
-    }
-
-    @Override
-    public List<Question> findByQuiz(Long quizId) {
+    public List<Question> findByQuizId(Long quizId) {
         List<Question> questions = new ArrayList<Question>();
         String findRecordSQL = "SELECT * FROM questions WHERE  fk_quiz_id=?";
         try {

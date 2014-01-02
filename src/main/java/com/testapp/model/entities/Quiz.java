@@ -5,6 +5,7 @@ import java.util.List;
 public class Quiz extends AbstractEntity {
     private String name;
     private List<QuizResults> quizResultsList;
+    private List<Question> questions;
     private Long subjectId;
 
     public Quiz(String name, Long subjectId) {
@@ -27,6 +28,14 @@ public class Quiz extends AbstractEntity {
 
     public void setQuizResultsList(List<QuizResults> quizResultsList) {
         this.quizResultsList = quizResultsList;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     public Long getSubjectId() {

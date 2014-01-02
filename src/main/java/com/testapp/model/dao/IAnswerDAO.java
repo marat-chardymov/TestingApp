@@ -6,5 +6,5 @@ import com.testapp.model.entities.Question;
 import java.util.List;
 
 public interface IAnswerDAO extends IGenericDao<Answer> {
-    public List<Answer> findByQuestion(Question question);
+    public List<Answer> findByQuestionId(Long questionId);
 }

@@ -85,7 +85,7 @@ public class QuizDAOTest {
         quizDAO.add(quiz2);
         quizDAO.add(quiz3);
 
-        List<Quiz> foundedQuizzes = quizDAO.findBySubject(subject);
+        List<Quiz> foundedQuizzes = quizDAO.findBySubjectId(subject.getId());
         for (Quiz foundedQuiz : foundedQuizzes) {
             assertEquals(foundedQuiz.getSubjectId(), subject.getId());
         }

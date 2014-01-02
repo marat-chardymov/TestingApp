@@ -52,6 +52,8 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
                 String name = resultSet.getString("name");
                 Long fk_subject = resultSet.getLong("fk_subject_id");
                 quiz = new Quiz(name, fk_subject);
+                Long quizId = resultSet.getLong("quiz_id");
+                quiz.setId(quizId);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,29 +92,6 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
         } finally {
             super.closeSC(preparedStatement, connection);
         }
-    }
-
-    @Override
-    public List<Quiz> findBySubject(Subject subject) {
-        List<Quiz> quizzes = new ArrayList<Quiz>();
-        String findRecordSQL = "SELECT * FROM quizzes WHERE  fk_subject_id=?";
-        try {
-            connection = super.getConnection();
-            preparedStatement = connection.prepareStatement(findRecordSQL);
-            preparedStatement.setLong(1, subject.getId());
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String name = resultSet.getString("name");
-                Long fk_subject = resultSet.getLong("fk_subject_id");
-                Quiz quiz = new Quiz(name, fk_subject);
-                quizzes.add(quiz);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            super.closeEverything(resultSet, preparedStatement, connection);
-        }
-        return quizzes;
     }
 
     @Override
