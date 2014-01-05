@@ -1,8 +1,6 @@
 package com.testapp.model.entities;
 
-import java.beans.Transient;
-
-public class Answer extends AbstractEntity {
+public class Answer extends Entity {
     private String content;
     private boolean isRight;
     @javax.persistence.Transient

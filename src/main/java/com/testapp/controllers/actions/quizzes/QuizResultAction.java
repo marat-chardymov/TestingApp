@@ -13,7 +13,10 @@ public class QuizResultAction implements Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Quiz quiz = (Quiz) request.getSession().getAttribute("quiz");
         Map<String, String[]> parameters = request.getParameterMap();
-        int result = new QuizResultCalc().calculateResult(parameters, quiz);
-
+        int result = new QuizResultCalc().calculateResult(quiz, parameters);
+        int questionNumber = quiz.getQuestions().size();
+        request.getSession().setAttribute("result", result);
+        request.getSession().setAttribute("questionNumber", questionNumber);
+        request.getRequestDispatcher("/jsp/quizResult.jsp").forward(request, response);
     }
 }

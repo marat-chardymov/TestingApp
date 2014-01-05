@@ -1,6 +1,6 @@
 package com.testapp.model.entities;
 
-public class QuizResults extends AbstractEntity{
+public class QuizResults extends Entity {
     private int score;
     private Quiz quiz;
     private User user;

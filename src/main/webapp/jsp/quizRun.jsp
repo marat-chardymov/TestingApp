@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="../css/bootstrap.min.css"/>
-<%-- twitter bootstrap css expected in header.jsp --%>
-<link rel="stylesheet" href="/css/icheck/red.css">
-<link rel="stylesheet" href="/css/quiz.css"/>
-
+<! DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/icheck/red.css">
+    <link rel="stylesheet" href="/css/quiz.css"/>
+</head>
+<body>
 <form action="quizResult" method="post">
     <div class="container">
         <div class="hero-unit"><h2>${quiz.name} quiz</h2></div>
@@ -45,4 +48,4 @@
         });
     });
 </script>
-<%@ include file="/includes/footer.jsp" %>
+</body>

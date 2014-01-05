@@ -2,7 +2,7 @@ package com.testapp.model.entities;
 
 import java.util.List;
 
-public class User extends AbstractEntity {
+public class User extends Entity {
     private String name;
     private String surname;
     private List<QuizResults> quizResultsList;
