@@ -15,7 +15,7 @@ public class FrontController extends HttpServlet {
             action.execute(request, response);
 
             //if (view.equals(request.getRequestURI().substring(1))) {
-                //request.getRequestDispatcher("/jsp/" + view + ".jsp").forward(request, response);
+            //request.getRequestDispatcher("/jsp/" + view + ".jsp").forward(request, response);
 
 //            } else {
 //            }

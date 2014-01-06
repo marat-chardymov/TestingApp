@@ -2,8 +2,18 @@
     padding: 5px;
     padding-left: 15px;
     vertical-align: middle;
+
+}
+.table{
+    width: 500px;
 }
 
 form {
     margin: 10px;
+}
+#createQuiz{
+    margin-bottom: 10px;
+}
+input[type="text"]{
+    height: 30px;
 }

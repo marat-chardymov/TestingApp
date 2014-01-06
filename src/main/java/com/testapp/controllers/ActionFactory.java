@@ -2,6 +2,7 @@ package com.testapp.controllers;
 
 import com.testapp.controllers.actions.home.HomeIndexAction;
 import com.testapp.controllers.actions.quistions.QuestionIndexAction;
+import com.testapp.controllers.actions.quizzes.QuizDeleteAction;
 import com.testapp.controllers.actions.quizzes.QuizIndexAction;
 import com.testapp.controllers.actions.quizzes.QuizResultAction;
 import com.testapp.controllers.actions.quizzes.QuizRunAction;
@@ -23,6 +24,7 @@ public class ActionFactory {
         actions.put("POST/subjects/delete", new SubjectDeleteAction());
 
         actions.put("GET/quizzes", new QuizIndexAction());
+        actions.put("POST/quizzes/delete", new QuizDeleteAction());
         actions.put("GET/quizRun", new QuizRunAction());
         actions.put("POST/quizResult", new QuizResultAction());
 

@@ -10,7 +10,7 @@
                     <td>${subject.id}</td>
                     <td>
                         <form action="subjects/delete" method="post">
-                            <button name="subjectId" value="${subject.id}" class="btn btn-danger">delete</button>
+                            <button name="subjectId" value="${subject.id}" class="btn btn-danger"><i class="icon-remove"></i> delete</button>
                         </form>
                     </td>
                     <td><a href="quizzes?subject_id=${subject.id}" class="btn">get quizzes</a></td>
