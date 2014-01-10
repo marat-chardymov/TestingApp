@@ -2,9 +2,12 @@
 
 
 <div class="container" align="center">
-    <form>
-        <input type="text" class="input-large" placeholder="New quiz name...">
-        <a href="#" class="btn btn-info" id="createQuiz"><i class="icon-plus"></i> add </a>
+    <form action="quizzes/create" method="post">
+        <input type="hidden" name="subjectId" value="${param.subject_id}">
+        <input type="text" class="input-large" name="quizName" placeholder="New quiz name...">
+        <button type="submit" class="btn btn-info" id="createQuiz">
+            <i class="icon-plus"></i> Add
+        </button>
     </form>
 
     <table class="table table-hover">

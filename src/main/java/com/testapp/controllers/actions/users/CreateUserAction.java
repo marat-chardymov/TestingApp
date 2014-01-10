@@ -1,13 +1,14 @@
-package com.testapp.controllers.actions.home;
+package com.testapp.controllers.actions.users;
 
 import com.testapp.controllers.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class HomeIndexAction implements Action {
+
+public class CreateUserAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.sendRedirect("/jsp/home.jsp");
+
     }
 }

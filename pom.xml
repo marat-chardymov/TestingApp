@@ -27,6 +27,12 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+        <!-- HASH -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.3m</version>
+        </dependency>
         <!-- MySQL jdbc driver-->
         <dependency>
             <groupId>mysql</groupId>
@@ -35,9 +41,9 @@
         </dependency>
         <!-- c3p0 connection pool-->
         <dependency>
-            <groupId>c3p0</groupId>
+            <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
+            <version>0.9.2.1</version>
         </dependency>
         <!-- junit test framework -->
         <dependency>

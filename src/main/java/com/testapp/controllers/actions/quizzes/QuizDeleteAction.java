@@ -16,6 +16,5 @@ public class QuizDeleteAction implements Action {
         quizDAO.delete(id);
         Long subject_id = Long.valueOf(request.getParameter("subject_id"));
         response.sendRedirect("/quizzes" + "?subject_id=" + subject_id);
-        //request.getRequestDispatcher("/jsp/subjects.jsp").forward(request, response);
     }
 }
