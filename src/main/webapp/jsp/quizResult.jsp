@@ -10,7 +10,7 @@
 <div class="container-narrow">
     <div class="jumbotron">
         <h1>Your result is ${result} out of ${questionNumber}!</h1>
-        <a class="btn btn-large btn-success" href="/subjects">
+        <a class="btn btn-large btn-success" href="/jsp/subjects">
             Return to subjects
         </a>
     </div>

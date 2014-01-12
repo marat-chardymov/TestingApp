@@ -25,12 +25,12 @@ public class LoginAction implements Action {
             if (passOk) {
                 //if exists
                 request.getSession().setAttribute("user", user);
-                response.sendRedirect("/home");
+                response.sendRedirect("/jsp/home");
             } else {
-                response.sendRedirect("/jsp/login.jsp");
+                response.sendRedirect("/login.jsp");
             }
         } else {
-            response.sendRedirect("/jsp/login.jsp");
+            response.sendRedirect("/login.jsp");
         }
 
     }

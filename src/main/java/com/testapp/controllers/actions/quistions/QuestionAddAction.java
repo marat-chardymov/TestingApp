@@ -1,14 +1,13 @@
-package com.testapp.controllers.actions.users;
+package com.testapp.controllers.actions.quistions;
 
 import com.testapp.controllers.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LogoutAction implements Action {
+public class QuestionAddAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.getSession().removeAttribute("user");
-        response.sendRedirect("/login.jsp");
+        System.out.println(request);
     }
 }

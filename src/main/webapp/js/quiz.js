@@ -1,37 +1,38 @@
-function QuizCtrl($scope) {
+function QuizCtrl($scope, $http) {
 
-    $scope.answers = [
-        {content: "Answer1", isRight: true},
-        {content: "Answer2", isRight: false}
+    $scope.questions = [
+        {id: 1, content: "Question1"},
+        {id: 2, content: "Question2"}
     ];
-    $scope.getTotalAnswers = function () {
-        return $scope.answers.length;
+    $scope.newQuestion = {};
+    $scope.getTotalQuestions = function () {
+        return $scope.questions.length;
     };
-    $scope.addAnswer = function () {
-        $scope.answers.push({content: $scope.formAnswerText, isRight: false});
-        $scope.formAnswerText = '';
-    };
-    $scope.clearFalse = function () {
-        $scope.answers= _.filter($scope.answers, function(answer){
-           return answer.isRight;
-        });
-
-    };
-}
-function UserController($scope, $http)
-{
-    $scope.user = {};
-
-    $scope.createUser = function()
-    {
+    $scope.addQuestion = function () {
+        var newQuestion = "prostostroka";
         $http({
             method: 'POST',
-            url: '/user',
-            headers: {'Content-Type': 'application/json'},
-            data:  $scope.user
-        }).success(function (data)
-            {
-                $scope.status=data;
+            url: '/addQuestion',
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: {newQuestion: newQuestion}
+        }).success(function (data) {
+                $scope.questions.push({id: 3, content: $scope.formQuestionText});
+                $scope.formQuestionText = '';
             });
+//        $.ajax({
+//            url: '/addQuestion',
+//            type: 'POST',
+//            data: {countryname: "Belarus"},
+//            success: function(response){
+//               alert("sukabljat!");
+//            }
+//        });
+
+    };
+    $scope.delete = function () {
+        $scope.answers = _.filter($scope.answers, function (answer) {
+            return answer.isRight;
+        });
+
     };
 }

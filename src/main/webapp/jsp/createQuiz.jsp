@@ -14,18 +14,19 @@
 ${param.subjectId}<br>
 ${param.quizName}
 <div ng-controller="QuizCtrl">
-    <h2>Total answers: {{getTotalAnswers()}}</h2>
+    <h2>Total answers: {{getTotalQuestions()}}</h2>
     <ul class="unstyled">
-        <li ng-repeat="answer in answers">
-            <input type="checkbox" ng-model="answer.isRight">
-            <span class="isRight-{{answer.isRight}}">{{answer.content}}</span>
+        <li ng-repeat="question in questions">
+            <span>{{question.id}}</span>
+            <span>{{question.content}}</span>
+            <button class="btn btn-danger" ng-click="delete()"><i class="icon-trash"></i>delete</button>
         </li>
     </ul>
-    <form class="form-horizontal">
-        <input type="text" ng-model="formAnswerText" ng-model-instantly>
-        <button class="btn" ng-click="addAnswer()"><i class="icon-plus"></i>Add</button>
+    <form class="form-horizontal" ng-submit="addQuestion()">
+        <input type="text" name="someName" ng-model="formQuestionText" ng-model-instantly>
+        <button class="btn" type="submit" value="add"><i class="icon-plus"></i>Add</button>
     </form>
-    <button class="btn large" ng-click="clearFalse()"><i class="icon-trash"></i> Clear false</button>
+
 </div>
 </body>
 </html>

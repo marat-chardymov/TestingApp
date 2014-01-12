@@ -1,6 +1,7 @@
 package com.testapp.controllers;
 
 import com.testapp.controllers.actions.home.HomeIndexAction;
+import com.testapp.controllers.actions.quistions.QuestionAddAction;
 import com.testapp.controllers.actions.quistions.QuestionIndexAction;
 import com.testapp.controllers.actions.quizzes.*;
 import com.testapp.controllers.actions.subjects.SubjectDeleteAction;
@@ -20,20 +21,21 @@ public class ActionFactory {
     static {
         actions.put("POST/login", new LoginAction());
         actions.put("GET/logout", new LogoutAction());
-        actions.put("GET/home", new HomeIndexAction());
+        actions.put("GET/jsp/home", new HomeIndexAction());
 
-        actions.put("GET/subjects", new SubjectIndexAction());
-        actions.put("POST/subjects/delete", new SubjectDeleteAction());
+        actions.put("GET/jsp/subjects", new SubjectIndexAction());
+        actions.put("POST/jsp/subjects/delete", new SubjectDeleteAction());
 
-        actions.put("GET/quizzes", new QuizIndexAction());
-        actions.put("POST/quizzes/create", new QuizCreateAction());
-        actions.put("POST/quizzes/delete", new QuizDeleteAction());
-        actions.put("GET/quizRun", new QuizRunAction());
-        actions.put("POST/quizResult", new QuizResultAction());
+        actions.put("GET/jsp/quizzes", new QuizIndexAction());
+        actions.put("POST/jsp/quizzes/create", new QuizCreateAction());
+        actions.put("POST/jsp/quizzes/delete", new QuizDeleteAction());
+        actions.put("GET/jsp/quizRun", new QuizRunAction());
+        actions.put("POST/jsp/quizResult", new QuizResultAction());
 
-        actions.put("GET/questions", new QuestionIndexAction());
+        actions.put("GET/jsp/questions", new QuestionIndexAction());
+        actions.put("POST/jsp/questions/add", new QuestionAddAction());
 
-        actions.put("POST/user", new CreateUserAction());
+        actions.put("POST/jsp/user", new CreateUserAction());
     }
 
     public static Action getAction(HttpServletRequest request) {

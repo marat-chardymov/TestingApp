@@ -18,13 +18,13 @@
         <div class="navbar-inner">
             <a class="brand">Testing App</a>
             <ul class="nav">
-                <li <%if (request.getServletPath().contains("home.jsp")) {%>
+                <li <%if (request.getServletPath().contains("jsp/home.jsp")) {%>
                         class="active" <%}%> >
                     <a href="../jsp/home.jsp">Home</a>
                 </li>
-                <li <%if (request.getServletPath().contains("subjects.jsp")) {%>
+                <li <%if (request.getServletPath().contains("jsp/subjects.jsp")) {%>
                         class="active" <%}%> >
-                    <a href="/subjects">Subjects</a>
+                    <a href="/jsp/subjects">Subjects</a>
                 </li>
             </ul>
         </div>
