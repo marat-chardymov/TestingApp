@@ -3,7 +3,6 @@ package com.testapp.model.entities;
 public class Answer extends Entity {
     private String content;
     private boolean isRight;
-    @javax.persistence.Transient
     private boolean isChosen;
     private Long questionId;
 

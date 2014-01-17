@@ -22,10 +22,10 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
      */
     private static class UserDAOHolder {
 
-        public static final UserDAO instance = new UserDAO();
+        public static final IUserDAO instance = new UserDAO();
     }
 
-    public static UserDAO getInstance() {
+    public static IUserDAO getInstance() {
         return UserDAOHolder.instance;
     }
 

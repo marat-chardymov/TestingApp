@@ -24,15 +24,15 @@ public class AnswerDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer1_quiz", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question = new Question("test_answer1_question", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question);
 
         Answer answer = new Answer("1812 year", true, question.getId());
-        IAnswerDAO answerDAO = new AnswerDAO();
+        IAnswerDAO answerDAO = AnswerDAO.getInstance();
         answerDAO.add(answer);
 
         assertEquals(answer.getId().getClass(), Long.class);
@@ -45,15 +45,15 @@ public class AnswerDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer2_quiz", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question = new Question("test_answer2_question", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question);
 
         Answer answer = new Answer("1812 year", true, question.getId());
-        IAnswerDAO answerDAO = new AnswerDAO();
+        IAnswerDAO answerDAO = AnswerDAO.getInstance();
         answerDAO.add(answer);
 
         assertEquals(answer.getId().getClass(), Long.class);
@@ -64,7 +64,7 @@ public class AnswerDAOTest {
 
     @Test
     public void findFail() {
-        IAnswerDAO answerDAO = new AnswerDAO();
+        IAnswerDAO answerDAO = AnswerDAO.getInstance();
         Answer answer = answerDAO.find(Long.MAX_VALUE);
         assertNull(answer);
     }
@@ -76,15 +76,15 @@ public class AnswerDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer3_quiz", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question = new Question("test_answer3_question", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question);
 
         Answer answer = new Answer("1812 year", true, question.getId());
-        IAnswerDAO answerDAO = new AnswerDAO();
+        IAnswerDAO answerDAO = AnswerDAO.getInstance();
         answerDAO.add(answer);
 
         answer.setContent("1945 year");
@@ -102,16 +102,16 @@ public class AnswerDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer4_quiz", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question = new Question("test_answer4_question", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question);
         assertEquals(question.getId().getClass(), Long.class);
 
         Answer answer = new Answer("999 year", true, question.getId());
-        IAnswerDAO answerDAO = new AnswerDAO();
+        IAnswerDAO answerDAO = AnswerDAO.getInstance();
         answerDAO.add(answer);
 
         answerDAO.delete(answer.getId());
@@ -126,17 +126,17 @@ public class AnswerDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer5_quiz", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question = new Question("test_answer5_question", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question);
 
         Answer answer1 = new Answer("test_answer5_1",true, question.getId());
         Answer answer2 = new Answer("test_answer5_2",false, question.getId());
         Answer answer3 = new Answer("test_answer5_3",true, question.getId());
-        IAnswerDAO answerDAO = new AnswerDAO();
+        IAnswerDAO answerDAO = AnswerDAO.getInstance();
         answerDAO.add(answer1);
         answerDAO.add(answer2);
         answerDAO.add(answer3);

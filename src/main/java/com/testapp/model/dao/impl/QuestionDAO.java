@@ -3,6 +3,7 @@ package com.testapp.model.dao.impl;
 
 import com.testapp.model.dao.IAnswerDAO;
 import com.testapp.model.dao.IQuestionDAO;
+import com.testapp.model.dao.IQuizDAO;
 import com.testapp.model.entities.Answer;
 import com.testapp.model.entities.Question;
 import com.testapp.model.entities.Quiz;
@@ -14,6 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionDAO extends GenericDAO<Question> implements IQuestionDAO {
+    ///////////////////Singletone///////////////////////////////////////////////////////
+    private QuestionDAO() {
+    }
+
+    /**
+     * This is a the part of implementation Singleton-pattern of Bill Pugh
+     * <p/>
+     * see https://en.wikipedia.org/wiki/Singleton_pattern
+     */
+    private static class QuestionDAOHolder {
+
+        public static final IQuestionDAO instance = new QuestionDAO();
+    }
+
+    public static IQuestionDAO getInstance() {
+        return QuestionDAOHolder.instance;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public void add(Question question) {

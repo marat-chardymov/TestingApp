@@ -16,9 +16,8 @@
             <tr>
                 <td>${quiz.name}</td>
                 <td>${quiz.id}</td>
-                <td><a href="questions?quiz_id=${quiz.id}" class="btn">get questions</a></td>
-                <td><a href="quizRun?quiz_id=${quiz.id}" class="btn btn-success"><i class="icon-play"></i>
-                    start quiz</a></td>
+                <td><a href="quizzes/edit?quiz_id=${quiz.id}" class="btn"><i class="icon-pencil"></i> edit</a></td>
+                <td><a href="quizRun?quiz_id=${quiz.id}" class="btn btn-success"><i class="icon-play"></i> start quiz</a></td>
                 <td>
                     <form action="quizzes/delete" method="post">
                         <input type="hidden" name="subject_id" value="${param.subject_id}">

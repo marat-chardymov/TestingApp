@@ -13,19 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class QuizRunAction implements Action {
+public class QuizEditAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        IQuizDAO quizDAO = QuizDAO.getInstance();
         Long quizId = Long.valueOf(request.getParameter("quiz_id"));
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         Quiz quiz = quizDAO.find(quizId);
+
         List<Question> questionList = QuestionDAO.getInstance().findByQuizId(quiz.getId());
         quiz.setQuestions(questionList);
         for (Question question : questionList) {
             List<Answer> answerList = AnswerDAO.getInstance().findByQuestionId(question.getId());
             question.setAnswers(answerList);
         }
-        request.getSession().setAttribute("quiz", quiz);
-        request.getRequestDispatcher("/jsp/quizRun.jsp").forward(request, response);
+        request.getSession().setAttribute("quiz",quiz);
+        request.getRequestDispatcher("/jsp/quizEdit.jsp").forward(request, response);
     }
 }

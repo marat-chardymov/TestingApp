@@ -19,7 +19,7 @@ public class QuizDAOTest {
         Subject subject = new Subject("test_quiz1_subject");
         ISubjectDAO subjectDAO = new SubjectDAO();
         subjectDAO.add(subject);
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         Quiz quiz = new Quiz("test_quiz1", subject.getId());
         quizDAO.add(quiz);
         assertEquals(quiz.getId().getClass(), Long.class);
@@ -32,7 +32,7 @@ public class QuizDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_quiz2", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
         Quiz theSameQuiz = quizDAO.find(quiz.getId());
         assertNotNull(theSameQuiz);
@@ -46,7 +46,7 @@ public class QuizDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_quiz3", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         quiz.setName("test_quiz3_updated");
@@ -64,7 +64,7 @@ public class QuizDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_quiz4", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
         quizDAO.delete(quiz.getId());
         Quiz deletedQuiz = quizDAO.find(quiz.getId());
@@ -80,7 +80,7 @@ public class QuizDAOTest {
         Quiz quiz1 = new Quiz("test_quiz5_1", subject.getId());
         Quiz quiz2 = new Quiz("test_quiz5_3", subject.getId());
         Quiz quiz3 = new Quiz("test_quiz5_3", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz1);
         quizDAO.add(quiz2);
         quizDAO.add(quiz3);

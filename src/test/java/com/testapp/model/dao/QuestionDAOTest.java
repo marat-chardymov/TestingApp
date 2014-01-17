@@ -25,11 +25,11 @@ public class QuestionDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_question1_quiz1", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question = new Question("question1 ?", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question);
         assertEquals(question.getId().getClass(), Long.class);
     }
@@ -41,11 +41,11 @@ public class QuestionDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_question2_quiz", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question = new Question("question2 ?", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question);
 
         Question theSameQuestion = questionDAO.find(question.getId());
@@ -60,11 +60,11 @@ public class QuestionDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_question3_quiz", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question = new Question("question3 ?", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question);
 
         question.setContent("question3_updated");
@@ -82,11 +82,11 @@ public class QuestionDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_question4_quiz", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question = new Question("question4 ?", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question);
 
         questionDAO.delete(question.getId());
@@ -101,13 +101,13 @@ public class QuestionDAOTest {
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_question5_quiz", subject.getId());
-        IQuizDAO quizDAO = new QuizDAO();
+        IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
 
         Question question1 = new Question("test_question5_1", quiz.getId());
         Question question2 = new Question("test_question5_2", quiz.getId());
         Question question3 = new Question("test_question5_3", quiz.getId());
-        IQuestionDAO questionDAO = new QuestionDAO();
+        IQuestionDAO questionDAO = QuestionDAO.getInstance();
         questionDAO.add(question1);
         questionDAO.add(question2);
         questionDAO.add(question3);

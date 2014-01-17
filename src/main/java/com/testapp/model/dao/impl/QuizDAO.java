@@ -11,6 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
+    ///////////////////Singletone///////////////////////////////////////////////////////
+    private QuizDAO() {
+    }
+
+    /**
+     * This is a the part of implementation Singleton-pattern of Bill Pugh
+     * <p/>
+     * see https://en.wikipedia.org/wiki/Singleton_pattern
+     */
+    private static class QuizDAOHolder {
+
+        public static final IQuizDAO instance = new QuizDAO();
+    }
+
+    public static IQuizDAO getInstance() {
+        return QuizDAOHolder.instance;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public void add(Quiz quiz) {
         try {

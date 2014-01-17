@@ -35,6 +35,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FrontController</servlet-name>
+        <url-pattern>/jsp/answers/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
         <url-pattern>/jsp/quizRun/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -46,14 +50,8 @@
         <url-pattern>/jsp/user/*</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>QuestionCreateController</servlet-name>
-        <servlet-class>com.testapp.controllers.QuestionCreateController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-    <servlet-name>QuestionCreateController</servlet-name>
-    <url-pattern>/addQuestion</url-pattern>
-    </servlet-mapping>
+
+
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>

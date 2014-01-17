@@ -1,8 +1,13 @@
 package com.testapp.controllers;
 
+import com.testapp.controllers.actions.answers.AnswerAddJSONAction;
+import com.testapp.controllers.actions.answers.AnswerDeleteJSONAction;
+import com.testapp.controllers.actions.answers.AnswerTriggerJSONAction;
 import com.testapp.controllers.actions.home.HomeIndexAction;
-import com.testapp.controllers.actions.quistions.QuestionAddAction;
-import com.testapp.controllers.actions.quistions.QuestionIndexAction;
+import com.testapp.controllers.actions.questions.QuestionAddJSONAction;
+import com.testapp.controllers.actions.questions.QuestionDeleteJSONAction;
+import com.testapp.controllers.actions.questions.QuestionIndexAction;
+import com.testapp.controllers.actions.questions.QuizGetJSONAction;
 import com.testapp.controllers.actions.quizzes.*;
 import com.testapp.controllers.actions.subjects.SubjectDeleteAction;
 import com.testapp.controllers.actions.subjects.SubjectIndexAction;
@@ -28,13 +33,19 @@ public class ActionFactory {
 
         actions.put("GET/jsp/quizzes", new QuizIndexAction());
         actions.put("POST/jsp/quizzes/create", new QuizCreateAction());
+        actions.put("GET/jsp/quizzes/edit", new QuizEditAction());
         actions.put("POST/jsp/quizzes/delete", new QuizDeleteAction());
         actions.put("GET/jsp/quizRun", new QuizRunAction());
         actions.put("POST/jsp/quizResult", new QuizResultAction());
 
         actions.put("GET/jsp/questions", new QuestionIndexAction());
-        actions.put("POST/jsp/questions/add", new QuestionAddAction());
+        actions.put("GET/jsp/questions/getJSON", new QuizGetJSONAction());
+        actions.put("POST/jsp/questions/add", new QuestionAddJSONAction());
+        actions.put("POST/jsp/questions/delete", new QuestionDeleteJSONAction());
 
+        actions.put("POST/jsp/answers/add", new AnswerAddJSONAction());
+        actions.put("POST/jsp/answers/delete",new AnswerDeleteJSONAction());
+        actions.put("POST/jsp/answers/triggerIsRight",new AnswerTriggerJSONAction());
         actions.put("POST/jsp/user", new CreateUserAction());
     }
 
