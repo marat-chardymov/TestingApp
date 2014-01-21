@@ -10,7 +10,7 @@
 <div class="container-narrow">
     <div class="jumbotron">
         <h1><fmt:message key="quizResult.resultIs"/> ${result} <fmt:message key="quizResult.outOf"/> ${questionNumber}!</h1>
-        <a class="btn btn-large btn-success" href="/jsp/subjects">
+        <a class="btn btn-large btn-success" href="subjects">
             <fmt:message key="quizResult.returnToSubjects"/>
         </a>
     </div>

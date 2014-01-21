@@ -15,6 +15,6 @@ public class SubjectIndexAction implements Action {
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         List<Subject> subjectList = subjectDAO.findAll();
         request.setAttribute("subjectList", subjectList);
-        request.getRequestDispatcher("/jsp/subjects.jsp").forward(request, response);
+        request.getRequestDispatcher("subjects.jsp").forward(request, response);
     }
 }

@@ -20,7 +20,7 @@ public class AuthorizationFilter implements Filter {
         if (request.getSession().getAttribute("user") != null || request.getRequestURI().equals("/login")) {
             chain.doFilter(request, response);
         } else {
-            response.sendRedirect("/login.jsp");
+            response.sendRedirect(request.getContextPath()+"/login.jsp");
             return;
         }
     }

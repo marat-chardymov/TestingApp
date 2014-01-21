@@ -17,6 +17,6 @@ public class QuizResultAction implements Action {
         int questionNumber = quiz.getQuestions().size();
         request.getSession().setAttribute("result", result);
         request.getSession().setAttribute("questionNumber", questionNumber);
-        request.getRequestDispatcher("/jsp/quizResult.jsp").forward(request, response);
+        request.getRequestDispatcher("quizResult.jsp").forward(request, response);
     }
 }

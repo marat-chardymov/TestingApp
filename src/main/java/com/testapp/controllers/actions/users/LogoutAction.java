@@ -9,6 +9,6 @@ public class LogoutAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.getSession().removeAttribute("user");
-        response.sendRedirect("/login.jsp");
+        response.sendRedirect(request.getContextPath()+"/login.jsp");
     }
 }

@@ -18,6 +18,6 @@ public class QuizIndexAction implements Action {
         Long subjectId = Long.valueOf(request.getParameter("subject_id"));
         List<Quiz> quizList = quizDAO.findBySubjectId(subjectId);
         request.setAttribute("quizList", quizList);
-        request.getRequestDispatcher("/jsp/quizzes.jsp").forward(request, response);
+        request.getRequestDispatcher("quizzes.jsp").forward(request, response);
     }
 }

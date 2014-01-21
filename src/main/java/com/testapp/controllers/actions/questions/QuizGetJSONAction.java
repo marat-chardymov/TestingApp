@@ -17,7 +17,6 @@ public class QuizGetJSONAction implements Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         IQuestionDAO questionDAO = QuestionDAO.getInstance();
         Quiz quiz = (Quiz) request.getSession().getAttribute("quiz");
-        //List<Question> questionList = quiz.getQuestions();
 
         Gson gson = new Gson();
         String json = gson.toJson(quiz);

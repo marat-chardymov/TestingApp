@@ -3,13 +3,13 @@
 <! DOCTYPE HTML>
 <html ng-app>
 <head>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/icheck/red.css">
-    <link rel="stylesheet" href="/css/quiz.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icheck/red.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/quiz.css"/>
 
-    <script src="/js/lib/angular.min.js"></script>
-    <script src="/js/lib/underscore-min.js"></script>
-    <script type="text/javascript" src="/js/quizCtrl.js"></script>
+    <script src="${pageContext.request.contextPath}/js/lib/angular.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/lib/underscore-min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/quizCtrl.js"></script>
 
     <title></title>
 </head>
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <a href="/jsp/quizzes?subject_id=${quiz.subjectId}" class="btn btn-success btn-large" id="backTo"><fmt:message key="quizEdit.backToQ"/></a>
+        <a href="${pageContext.request.contextPath}/jsp/quizzes?subject_id=${quiz.subjectId}" class="btn btn-success btn-large" id="backTo"><fmt:message key="quizEdit.backToQ"/></a>
     </div>
 
 </div>

@@ -24,14 +24,13 @@ public class LoginAction implements Action {
             passOk = BCrypt.checkpw(passCandidate, user.getPassword());
             if (passOk) {
                 //if exists
-
                 request.getSession().setAttribute("user", user);
-                response.sendRedirect("/jsp/home");
+                response.sendRedirect("jsp/home");
             } else {
-                response.sendRedirect("/login.jsp");
+                response.sendRedirect("login.jsp");
             }
         } else {
-            response.sendRedirect("/login.jsp");
+            response.sendRedirect("login.jsp");
         }
 
     }

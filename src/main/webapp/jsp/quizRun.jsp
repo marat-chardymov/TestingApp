@@ -4,8 +4,8 @@
 <html>
 <head>
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/icheck/red.css">
-    <link rel="stylesheet" href="/css/quiz.css"/>
+    <link rel="stylesheet" href="../css/icheck/red.css">
+    <link rel="stylesheet" href="../css/quiz.css"/>
 </head>
 <body>
 <form action="quizResult" method="post">
@@ -38,8 +38,8 @@
     </div>
 </form>
 
-<script type="text/javascript" src="/js/lib/jquery-2.0.3.js"></script>
-<script type="text/javascript" src="/js/lib/icheck.js"></script>
+<script type="text/javascript" src="../js/lib/jquery-2.0.3.js"></script>
+<script type="text/javascript" src="../js/lib/icheck.js"></script>
 <script>
     $(document).ready(function () {
         $('input').iCheck({

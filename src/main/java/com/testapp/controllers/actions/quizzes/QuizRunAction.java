@@ -26,6 +26,6 @@ public class QuizRunAction implements Action {
             question.setAnswers(answerList);
         }
         request.getSession().setAttribute("quiz", quiz);
-        request.getRequestDispatcher("/jsp/quizRun.jsp").forward(request, response);
+        request.getRequestDispatcher("quizRun.jsp").forward(request, response);
     }
 }

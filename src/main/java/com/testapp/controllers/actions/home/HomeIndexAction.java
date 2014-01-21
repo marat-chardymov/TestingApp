@@ -8,6 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeIndexAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.sendRedirect("/jsp/home.jsp");
+        response.sendRedirect(request.getRequestURI()+".jsp");
     }
 }

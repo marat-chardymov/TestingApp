@@ -11,7 +11,6 @@ public class FrontController extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-
             Action action = ActionFactory.getAction(request);
             action.execute(request, response);
         } catch (Exception e) {

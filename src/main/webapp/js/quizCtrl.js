@@ -1,7 +1,7 @@
 function QuizCtrl($scope, $http) {
 
     $scope.quiz;
-    $http.get('/jsp/questions/getJSON')
+    $http.get('/TestingApp/jsp/questions/getJSON')
         .then(function (res) {
             $scope.quiz = res.data;
         });
@@ -23,7 +23,7 @@ function QuizCtrl($scope, $http) {
         var newQuestion = {content: $scope.formQuestionText, quizId: $scope.quiz.id};
         $http({
             method: 'POST',
-            url: '/jsp/questions/add',
+            url: '/TestingApp/jsp/questions/add',
             headers: { 'Content-Type': 'application/json' },
             data: newQuestion
         }).success(function (data) {
@@ -35,7 +35,7 @@ function QuizCtrl($scope, $http) {
         var newAnswer = {content: formAnswerText, questionId: question.id, isRight: false};
         $http({
             method: 'POST',
-            url: '/jsp/answers/add',
+            url: '/TestingApp/jsp/answers/add',
             headers: { 'Content-Type': 'application/json' },
             data: newAnswer
         }).success(function (data) {
@@ -46,7 +46,7 @@ function QuizCtrl($scope, $http) {
     $scope.deleteQuestion = function (question) {
         $http({
             method: 'POST',
-            url: '/jsp/questions/delete',
+            url: '/TestingApp/jsp/questions/delete',
             headers: { 'Content-Type': 'application/json' },
             data: question
         }).success(function (data) {
@@ -56,7 +56,7 @@ function QuizCtrl($scope, $http) {
     $scope.deleteAnswer = function (question, answer) {
         $http({
             method: 'POST',
-            url: '/jsp/answers/delete',
+            url: '/TestingApp/jsp/answers/delete',
             headers: { 'Content-Type': 'application/json' },
             data: answer
         }).success(function (data) {
@@ -66,26 +66,12 @@ function QuizCtrl($scope, $http) {
     $scope.triggerIsRight = function (answer) {
         $http({
             method: 'POST',
-            url: '/jsp/answers/triggerIsRight',
+            url: '/TestingApp/jsp/answers/triggerIsRight',
             headers: { 'Content-Type': 'application/json' },
             data: answer
         }).success(function (data) {
 
             });
     };
-    var directives = angular.module('directives', []);
-    directives.directive('showonhoverparent',
-        function () {
-            return {
-                link: function (scope, element, attrs) {
-                    element.parent().bind('mouseenter', function () {
-                        element.show();
-                    });
-                    element.parent().bind('mouseleave', function () {
-                        element.hide();
-                    });
-                }
-            };
-        });
 }
 

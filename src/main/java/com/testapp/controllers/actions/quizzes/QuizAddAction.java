@@ -17,7 +17,7 @@ public class QuizAddAction implements Action {
         quiz.setSubjectId(subjectId);
         IQuizDAO quizDAO = QuizDAO.getInstance();
         quizDAO.add(quiz);
-        response.sendRedirect("/jsp/quizzes?subject_id="+subjectId);
+        response.sendRedirect(request.getContextPath()+"/jsp/quizzes?subject_id="+subjectId);
         //request.setAttribute("quiz", quiz);
         //request.getRequestDispatcher("/jsp/quizEdit.jsp").forward(request, response);
     }

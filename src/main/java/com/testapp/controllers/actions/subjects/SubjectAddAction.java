@@ -18,6 +18,6 @@ public class SubjectAddAction implements Action {
         Subject subject=new Subject(subjectName);
         ISubjectDAO subjectDAO= SubjectDAO.getInstance();
         subjectDAO.add(subject);
-        response.sendRedirect("/jsp/subjects");
+        response.sendRedirect(request.getContextPath()+"/jsp/subjects");
     }
 }

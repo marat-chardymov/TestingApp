@@ -12,7 +12,7 @@
 <div class="container" id="header">
     <div id="loginStatus">
         <div id="loggedIn"><fmt:message key="header.loginAs"/> <span class="label label-info">${user.name} ${user.surname}</span></div>
-        <a href="/logout" id="logout"><fmt:message key="header.logout"/> </a>
+        <a href="logout" id="logout"><fmt:message key="header.logout"/> </a>
     </div>
     <div class="navbar">
         <div class="navbar-inner">
@@ -24,7 +24,7 @@
                 </li>
                 <li <%if (request.getServletPath().contains("jsp/subjects.jsp")) {%>
                         class="active" <%}%> >
-                    <a href="/jsp/subjects"><fmt:message key="header.navbar.subjects"/></a>
+                    <a href="../jsp/subjects"><fmt:message key="header.navbar.subjects"/></a>
                 </li>
             </ul>
         </div>
