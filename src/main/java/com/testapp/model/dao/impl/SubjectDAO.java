@@ -1,5 +1,6 @@
 package com.testapp.model.dao.impl;
 
+import com.testapp.model.dao.IAnswerDAO;
 import com.testapp.model.dao.ISubjectDAO;
 import com.testapp.model.entities.Subject;
 import com.testapp.model.util.MyDataSource;
@@ -10,6 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
+    ///////////////////Singletone///////////////////////////////////////////////////////
+    private SubjectDAO() {
+    }
+
+    /**
+     * This is a the part of implementation Singleton-pattern of Bill Pugh
+     * <p/>
+     * see https://en.wikipedia.org/wiki/Singleton_pattern
+     */
+    private static class SubjectDAOHolder {
+
+        public static final ISubjectDAO instance = new SubjectDAO();
+    }
+
+    public static ISubjectDAO getInstance() {
+        return SubjectDAOHolder.instance;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
     @Override
     public void add(Subject subject) {
         try {

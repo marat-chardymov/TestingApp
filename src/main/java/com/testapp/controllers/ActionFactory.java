@@ -9,6 +9,7 @@ import com.testapp.controllers.actions.questions.QuestionDeleteJSONAction;
 import com.testapp.controllers.actions.questions.QuestionIndexAction;
 import com.testapp.controllers.actions.questions.QuizGetJSONAction;
 import com.testapp.controllers.actions.quizzes.*;
+import com.testapp.controllers.actions.subjects.SubjectAddAction;
 import com.testapp.controllers.actions.subjects.SubjectDeleteAction;
 import com.testapp.controllers.actions.subjects.SubjectIndexAction;
 import com.testapp.controllers.actions.users.CreateUserAction;
@@ -30,9 +31,10 @@ public class ActionFactory {
 
         actions.put("GET/jsp/subjects", new SubjectIndexAction());
         actions.put("POST/jsp/subjects/delete", new SubjectDeleteAction());
+        actions.put("POST/jsp/subjects/add",new SubjectAddAction() );
 
         actions.put("GET/jsp/quizzes", new QuizIndexAction());
-        actions.put("POST/jsp/quizzes/create", new QuizCreateAction());
+        actions.put("POST/jsp/quizzes/add", new QuizAddAction());
         actions.put("GET/jsp/quizzes/edit", new QuizEditAction());
         actions.put("POST/jsp/quizzes/delete", new QuizDeleteAction());
         actions.put("GET/jsp/quizRun", new QuizRunAction());

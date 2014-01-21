@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../includes/tagLibs.jsp" %>
+<%-- above we include all necessary tag librarise --%>
 <! DOCTYPE HTML>
 <html>
 <head>
@@ -10,7 +10,7 @@
 <body>
 <form action="quizResult" method="post">
     <div class="container">
-        <div class="hero-unit"><h2>${quiz.name} quiz</h2></div>
+        <div class="hero-unit"><h2>${quiz.name}</h2></div>
         <c:forEach var="question" items="${quiz.questions}">
             <div class="container">
                 <div class="content">
@@ -33,7 +33,8 @@
                 </div>
             </div>
         </c:forEach>
-        <input type="submit" value="Submit" class="btn btn-success btn-large">
+        <fmt:message key="buttons.submit" var="submitVar"/>
+        <input type="submit" value="${submitVar}" class="btn btn-success btn-large">
     </div>
 </form>
 

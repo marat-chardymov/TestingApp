@@ -8,7 +8,7 @@ import com.testapp.model.entities.Quiz;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class QuizCreateAction implements Action {
+public class QuizAddAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Long subjectId = Long.valueOf(request.getParameter("subjectId"));

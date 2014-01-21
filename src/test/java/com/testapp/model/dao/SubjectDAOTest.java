@@ -13,7 +13,7 @@ public class SubjectDAOTest {
     @Test
     public void add() {
         Subject subject = new Subject("test1");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
         assertEquals(subject.getId().getClass(), Long.class);
     }
@@ -21,7 +21,7 @@ public class SubjectDAOTest {
     @Test
     public void find() {
         Subject subject = new Subject("test2");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
         assertEquals(subject.getId().getClass(), Long.class);
         Subject theSameSubject = subjectDAO.find(subject.getId());
@@ -32,7 +32,7 @@ public class SubjectDAOTest {
     @Test
     public void update() {
         Subject subject = new Subject("test3");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
         subject.setName("test3_updated");
         subjectDAO.update(subject);
@@ -44,7 +44,7 @@ public class SubjectDAOTest {
     @Test
     public void delete() {
         Subject subject = new Subject("test4");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
         subjectDAO.delete(subject.getId());
         Subject deletedSubject = subjectDAO.find(subject.getId());
@@ -54,7 +54,7 @@ public class SubjectDAOTest {
     @Test
     public void findAll() {
         Subject subject = new Subject("test5");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
         List<Subject> subjectList = subjectDAO.findAll();
         assertNotNull(subjectList);

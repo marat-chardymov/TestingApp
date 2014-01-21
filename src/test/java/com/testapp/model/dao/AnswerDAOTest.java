@@ -20,7 +20,7 @@ public class AnswerDAOTest {
     @Test
     public void add() {
         Subject subject = new Subject("test_answer1_subject");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer1_quiz", subject.getId());
@@ -41,7 +41,7 @@ public class AnswerDAOTest {
     @Test
     public void find() {
         Subject subject = new Subject("test_answer2_subject");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer2_quiz", subject.getId());
@@ -72,7 +72,7 @@ public class AnswerDAOTest {
     @Test
     public void update() {
         Subject subject = new Subject("test_answer3_subject");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer3_quiz", subject.getId());
@@ -98,7 +98,7 @@ public class AnswerDAOTest {
     @Test
     public void delete() {
         Subject subject = new Subject("test_answer4_subject");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer4_quiz", subject.getId());
@@ -122,7 +122,7 @@ public class AnswerDAOTest {
     @Test
     public void findByQuestion(){
         Subject subject = new Subject("test_answer5_subject");
-        ISubjectDAO subjectDAO = new SubjectDAO();
+        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
 
         Quiz quiz = new Quiz("test_answer5_quiz", subject.getId());

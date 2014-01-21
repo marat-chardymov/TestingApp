@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="tagLibs.jsp" %>
+<%-- above we include all necessary tag librarise --%>
 <! DOCTYPE HTML>
-<html>
+<html lang="${language}">
 <head>
     <title>Quiz app</title>
     <meta charset="utf-8">
@@ -11,8 +11,8 @@
 <body>
 <div class="container" id="header">
     <div id="loginStatus">
-        <div id="loggedIn">You logged in as <span class="label label-info">${user.name} ${user.surname}</span></div>
-        <a href="/logout" id="logout">Logout</a>
+        <div id="loggedIn"><fmt:message key="header.loginAs"/> <span class="label label-info">${user.name} ${user.surname}</span></div>
+        <a href="/logout" id="logout"><fmt:message key="header.logout"/> </a>
     </div>
     <div class="navbar">
         <div class="navbar-inner">
@@ -20,11 +20,11 @@
             <ul class="nav">
                 <li <%if (request.getServletPath().contains("jsp/home.jsp")) {%>
                         class="active" <%}%> >
-                    <a href="../jsp/home.jsp">Home</a>
+                    <a href="../jsp/home.jsp"><fmt:message key="header.navbar.home"/></a>
                 </li>
                 <li <%if (request.getServletPath().contains("jsp/subjects.jsp")) {%>
                         class="active" <%}%> >
-                    <a href="/jsp/subjects">Subjects</a>
+                    <a href="/jsp/subjects"><fmt:message key="header.navbar.subjects"/></a>
                 </li>
             </ul>
         </div>

@@ -27,7 +27,7 @@ function QuizCtrl($scope, $http) {
             headers: { 'Content-Type': 'application/json' },
             data: newQuestion
         }).success(function (data) {
-                $scope.quiz.questions.push({id: data.id, content: $scope.formQuestionText, answers:[]});
+                $scope.quiz.questions.push({id: data.id, content: $scope.formQuestionText, answers: []});
                 $scope.formQuestionText = '';
             });
     };
@@ -53,7 +53,7 @@ function QuizCtrl($scope, $http) {
                 $scope.quiz.questions.splice($scope.quiz.questions.indexOf(question), 1);
             });
     };
-    $scope.deleteAnswer = function (question,answer) {
+    $scope.deleteAnswer = function (question, answer) {
         $http({
             method: 'POST',
             url: '/jsp/answers/delete',
@@ -73,4 +73,19 @@ function QuizCtrl($scope, $http) {
 
             });
     };
+    var directives = angular.module('directives', []);
+    directives.directive('showonhoverparent',
+        function () {
+            return {
+                link: function (scope, element, attrs) {
+                    element.parent().bind('mouseenter', function () {
+                        element.show();
+                    });
+                    element.parent().bind('mouseleave', function () {
+                        element.hide();
+                    });
+                }
+            };
+        });
 }
+

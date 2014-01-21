@@ -11,13 +11,13 @@
 
 }
 .table{
-    width: 500px;
+    width: 600px;
 }
 
 form {
     margin: 10px;
 }
-#createQuiz{
+#add{
     margin-bottom: 10px;
 }
 input[type="text"]{

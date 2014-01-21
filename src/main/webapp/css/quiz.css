@@ -51,4 +51,8 @@ input[type="text"] {
     margin-bottom: 20px;
     margin-top: 20px;
 }
+.table td {
+    text-align: center;
+}
+
 

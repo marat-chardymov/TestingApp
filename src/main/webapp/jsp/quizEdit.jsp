@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../includes/tagLibs.jsp" %>
+<%-- above we include all necessary tag librarise --%>
 <! DOCTYPE HTML>
 <html ng-app>
 <head>
@@ -17,12 +17,14 @@
 <div ng-controller="QuizCtrl">
 
     <div class="container">
-        <div class="hero-unit"><h2>${quiz.name} quiz {{quiz.id}}</h2></div>
+        <div class="hero-unit"><h2>${quiz.name}</h2></div>
         <div class="container">
             <form class="form-horizontal" ng-submit="addQuestion()">
+                <fmt:message key="quizEdit.qHolder" var="qHolder"/>
                 <input type="text" name="someName" ng-model="formQuestionText" ng-model-instantly
-                       placeholder="New question">
-                <button class="btn btn-success" id="addQuestion" type="submit" value="add"><i class="icon-plus"></i> Add
+                       placeholder="${qHolder}">
+                <button class="btn" id="addQuestion" type="submit" value="add"><i class="icon-plus"></i> <fmt:message
+                        key="buttons.add"/>
                 </button>
             </form>
 
@@ -33,10 +35,12 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th class="span2"><h3>is right</h3></th>
+                        <th class="span2"><h3><fmt:message key="quizEdit.isRight"/></h3></th>
                         <th class="span6"><h3>{{question.content}}</h3></th>
                         <th class="span2">
-                            <button ng-click="deleteQuestion(question)" class="btn btn-danger"><i class="icon-remove"></i> Delete</button>
+                            <button ng-click="deleteQuestion(question)" class="btn"><i class="icon-remove"></i>
+                                <fmt:message key="buttons.delete"/>
+                            </button>
                         </th>
                     </tr>
                     </thead>
@@ -45,21 +49,25 @@
                     <tr ng-repeat="answer in question.answers">
                         <td><input type="checkbox" ng-model="answer.isRight" ng-click="triggerIsRight(answer)"></td>
                         <td><strong>{{answer.content}}</strong></td>
-                        <td><button ng-click="deleteAnswer(question,answer)" class="btn btn-danger"><i class="icon-remove"></i></button></td>
+                        <td>
+                            <button ng-click="deleteAnswer(question,answer)" class="btn"><i class="icon-remove"></i>
+                            </button>
+                        </td>
                     </tr>
 
                     </tbody>
                 </table>
                 <form class="simple-form">
-                    <input type="text" ng-model="formAnswerText" placeholder="New answer">
-                    <button class="btn btn-success" id="addAnswer" ng-click="addAnswer(question,formAnswerText)"><i
+                    <fmt:message key="quizEdit.aHolder" var="aHolder"/>
+                    <input type="text" ng-model="formAnswerText" placeholder="${aHolder}">
+                    <button class="btn" id="addAnswer" ng-click="addAnswer(question,formAnswerText)"><i
                             class="icon-plus"></i>
                     </button>
                 </form>
             </div>
         </div>
 
-        <a href="/jsp/quizzes?subject_id=${quiz.subjectId}" class="btn btn-success btn-large" id="backTo">Back to quizzes</a>
+        <a href="/jsp/quizzes?subject_id=${quiz.subjectId}" class="btn btn-success btn-large" id="backTo"><fmt:message key="quizEdit.backToQ"/></a>
     </div>
 
 </div>

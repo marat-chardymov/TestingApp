@@ -1,20 +1,23 @@
 package com.testapp.controllers.actions.subjects;
 
 import com.testapp.controllers.Action;
+import com.testapp.model.dao.IQuizDAO;
 import com.testapp.model.dao.ISubjectDAO;
+import com.testapp.model.dao.impl.QuizDAO;
 import com.testapp.model.dao.impl.SubjectDAO;
+import com.testapp.model.entities.Quiz;
 import com.testapp.model.entities.Subject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
-public class SubjectIndexAction implements Action {
+public class SubjectAddAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ISubjectDAO subjectDAO = SubjectDAO.getInstance();
-        List<Subject> subjectList = subjectDAO.findAll();
-        request.setAttribute("subjectList", subjectList);
-        request.getRequestDispatcher("/jsp/subjects.jsp").forward(request, response);
+        String subjectName = request.getParameter("subjectName");
+        Subject subject=new Subject(subjectName);
+        ISubjectDAO subjectDAO= SubjectDAO.getInstance();
+        subjectDAO.add(subject);
+        response.sendRedirect("/jsp/subjects");
     }
 }
