@@ -26,7 +26,8 @@ public class QuizEditAction implements Action {
             List<Answer> answerList = AnswerDAO.getInstance().findByQuestionId(question.getId());
             question.setAnswers(answerList);
         }
-        request.getSession().setAttribute("quiz",quiz);
+        request.getSession().setAttribute("quiz", quiz);
+        request.setAttribute("cPathVar",request.getContextPath());
         request.getRequestDispatcher("/jsp/quizEdit.jsp").forward(request, response);
     }
 }
