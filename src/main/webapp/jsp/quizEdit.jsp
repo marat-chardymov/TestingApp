@@ -19,11 +19,12 @@
     <div class="container">
         <div class="hero-unit"><h2>${quiz.name}</h2></div>
         <div class="container">
-            <form class="form-horizontal" ng-submit="addQuestion()">
+            <form name="questionForm" class="form-horizontal" ng-submit="addQuestion()">
                 <fmt:message key="quizEdit.qHolder" var="qHolder"/>
-                <input type="text" name="someName" ng-model="formQuestionText" ng-model-instantly
-                       placeholder="${qHolder}">
-                <button class="btn" id="addQuestion" type="submit" value="add"><i class="icon-plus"></i> <fmt:message
+                <input type="text" name="questionText" ng-model="formQuestionText" ng-model-instantly
+                       placeholder="${qHolder}" required>
+                <button class="btn" id="addQuestion" type="submit" value="add" ng-disabled="!questionForm.$valid"><i
+                        class="icon-plus"></i> <fmt:message
                         key="buttons.add"/>
                 </button>
             </form>
@@ -57,17 +58,19 @@
 
                     </tbody>
                 </table>
-                <form class="simple-form">
+                <form name="answerForm">
                     <fmt:message key="quizEdit.aHolder" var="aHolder"/>
-                    <input type="text" ng-model="formAnswerText" placeholder="${aHolder}">
-                    <button class="btn" id="addAnswer" ng-click="addAnswer(question,formAnswerText)"><i
+                    <input type="text" name="answerText" ng-model="formAnswerText" placeholder="${aHolder}" required>
+                    <button class="btn" id="addAnswer" ng-click="addAnswer(question,formAnswerText)"
+                            ng-disabled="answerForm.answerText.$invalid"><i
                             class="icon-plus"></i>
                     </button>
                 </form>
             </div>
         </div>
 
-        <a href="${pageContext.request.contextPath}/jsp/quizzes?subject_id=${quiz.subjectId}" class="btn btn-success btn-large" id="backTo"><fmt:message key="quizEdit.backToQ"/></a>
+        <a href="${pageContext.request.contextPath}/jsp/quizzes?subject_id=${quiz.subjectId}"
+           class="btn btn-success btn-large" id="backTo"><fmt:message key="quizEdit.backToQ"/></a>
     </div>
 
 </div>
