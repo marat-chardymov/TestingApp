@@ -1,6 +1,7 @@
 package com.testapp.model.dao.impl;
 
 import com.testapp.model.dao.IGenericDao;
+import com.testapp.model.util.MyConnectionPool;
 import com.testapp.model.util.MyDataSource;
 
 import java.io.IOException;
@@ -27,10 +28,8 @@ public abstract class GenericDAO<T> implements IGenericDao<T> {
             }
         }
         if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException e) {
-            }
+            //con.close();
+            MyConnectionPool.getInstance().release(con);
         }
     }
 
@@ -43,24 +42,16 @@ public abstract class GenericDAO<T> implements IGenericDao<T> {
             }
         }
         if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException e) {
-            }
+            //con.close();
+           MyConnectionPool.getInstance().release(con);
         }
     }
 
     protected Connection getConnection() {
-        MyDataSource ds = null;
-        Connection connection = null;
-        try {
-            ds = MyDataSource.getInstance();
-            connection = ds.getConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-             e.printStackTrace();
-        }
-        return connection;
+//        MyDataSource ds = null;
+//        Connection connection = null;
+//            ds = MyDataSource.getInstance();
+//            connection = ds.getConnection();
+        return MyConnectionPool.getInstance().getConnection();
     }
 }
