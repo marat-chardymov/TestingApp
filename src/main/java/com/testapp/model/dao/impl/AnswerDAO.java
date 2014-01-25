@@ -1,12 +1,9 @@
 package com.testapp.model.dao.impl;
 
+import com.testapp.exceptions.AppDAOException;
 import com.testapp.model.dao.IAnswerDAO;
-import com.testapp.model.dao.IQuestionDAO;
 import com.testapp.model.entities.Answer;
-import com.testapp.model.entities.Question;
-import com.testapp.model.util.MyDataSource;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +30,7 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
 
     /////////////////////////////////////////////////////////////////////////////////
     @Override
-    public void add(Answer answer) {
+    public void add(Answer answer) throws AppDAOException {
         try {
             connection = super.getConnection();
             String insertTableSQL = "INSERT INTO answers"
@@ -46,23 +43,23 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
             //we are trying to get id of inserted record
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Creating answer failed, no rows affected.");
+                throw new AppDAOException("Creating answer failed, no rows affected.");
             }
             resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 answer.setId(resultSet.getLong(1));
             } else {
-                throw new SQLException("Creating answer failed, no generated key obtained.");
+                throw new AppDAOException("Creating answer failed, no generated key obtained.");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("add answer failed", e);
         } finally {
             super.closeEverything(resultSet, preparedStatement, connection);
         }
     }
 
     @Override
-    public Answer find(Long id) {
+    public Answer find(Long id) throws AppDAOException {
         Answer answer = null;
         String findRecordSQL = "SELECT * FROM answers WHERE  answer_id=?";
         try {
@@ -79,7 +76,7 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
                 answer.setId(answerId);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("find answer failed",e);
         } finally {
             super.closeEverything(resultSet, preparedStatement, connection);
         }
@@ -87,7 +84,7 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
     }
 
     @Override
-    public void update(Answer answer) {
+    public void update(Answer answer) throws AppDAOException {
         String updateRecordSQL = "UPDATE answers SET content=?,is_right=? WHERE answer_id=?";
         try {
             connection = super.getConnection();
@@ -98,14 +95,14 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("update answer failed",e);
         } finally {
             super.closeSC(preparedStatement, connection);
         }
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id) throws AppDAOException {
         String deleteRecordSQL = "DELETE FROM answers WHERE answer_id=?";
         try {
             connection = super.getConnection();
@@ -113,14 +110,14 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("delete answer failed",e);
         } finally {
             super.closeSC(preparedStatement, connection);
         }
     }
 
     @Override
-    public List<Answer> findByQuestionId(Long questionId) {
+    public List<Answer> findByQuestionId(Long questionId) throws AppDAOException {
         List<Answer> answers = new ArrayList<Answer>();
         String findRecordSQL = "SELECT * FROM answers WHERE  fk_question_id=?";
         try {
@@ -138,7 +135,7 @@ public class AnswerDAO extends GenericDAO<Answer> implements IAnswerDAO {
                 answers.add(answer);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("findByQuestionId method failed",e);
         } finally {
             super.closeEverything(resultSet, preparedStatement, connection);
         }

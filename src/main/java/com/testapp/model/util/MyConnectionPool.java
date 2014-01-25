@@ -1,5 +1,6 @@
 package com.testapp.model.util;
 
+import com.testapp.exceptions.AppConnectionException;
 import com.testapp.model.dao.IAnswerDAO;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -28,21 +29,6 @@ public class MyConnectionPool {
     private MyConnectionPool() {
         this.pool = new LinkedBlockingDeque<Connection>();
         this.log = Logger.getLogger(MyConnectionPool.class);
-        try {
-            Properties props = PropertiesLoader.readProperties("datasource.properties");
-            this.driverClass = props.getProperty("driverClass");
-            this.jdbcUrl = props.getProperty("jdbcUrl");
-            this.username = props.getProperty("username");
-            this.password = props.getProperty("password");
-            this.initialPoolSize = Integer.parseInt(props.getProperty("initialPoolSize"));
-
-            for (int i = 0; i < initialPoolSize; i++) {
-                Connection connection = createConnection(driverClass, jdbcUrl, username, password);
-                pool.add(connection);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -61,36 +47,53 @@ public class MyConnectionPool {
 
     /////////////////////////////////////////////////////////////////////////////////
 
-    public Connection getConnection() {
-        Connection connection = pool.poll();
-        if (null == connection) {
-            pool.add(createConnection(driverClass, jdbcUrl, username, password));
-            connection = pool.poll();
+    public Connection getConnection() throws AppConnectionException {
+        Connection connection = null;
+        try {
+            connection = pool.poll(1, TimeUnit.SECONDS);
+            if (null == connection) {
+                pool.add(createConnection(driverClass, jdbcUrl, username, password));
+                connection = pool.poll();
+            }
+            return connection;
+        } catch (InterruptedException e) {
+            throw new AppConnectionException("can't get connection cause InterruptedException in pool.poll()", e);
         }
-        return connection;
     }
 
-    public void release(Connection connection) {
+    public void release(Connection connection) throws AppConnectionException {
         try {
             if (!connection.isClosed()) {
                 pool.add(connection);
             }
-        } catch (SQLException ex) {
-            log.log(Level.ERROR, "Exception in Databasepool.release", ex);
+        } catch (SQLException e) {
+            throw new AppConnectionException("can't release connection; isClosed() check failed", e);
         }
     }
 
 
-    private Connection createConnection(String driverClass, String jdbcUrl, String username, String password) {
+    private Connection createConnection(String driverClass, String jdbcUrl, String username, String password) throws AppConnectionException {
         try {
             Class.forName(driverClass);
             return DriverManager.getConnection(jdbcUrl, username, password);
-        } catch (SQLException e) {
-            log.log(Level.ERROR, "Exception in MyConnectionPool.createConnection", e);
         } catch (ClassNotFoundException e) {
-            log.log(Level.ERROR, "Exception in MyConnectionPool.createConnection", e);
+            throw new AppConnectionException("create connection failed: class driverClass not found", e);
+        } catch (SQLException e) {
+            throw new AppConnectionException("create connection failed: db error in DriverManager.getConnection", e);
         }
-        return null;
+    }
+
+    public void initPool(Properties props) throws AppConnectionException {
+            this.driverClass = props.getProperty("driverClass");
+            this.jdbcUrl = props.getProperty("jdbcUrl");
+            this.username = props.getProperty("username");
+            this.password = props.getProperty("password");
+            this.initialPoolSize = Integer.parseInt(props.getProperty("initialPoolSize"));
+
+            for (int i = 0; i < initialPoolSize; i++) {
+                Connection connection = createConnection(driverClass, jdbcUrl, username, password);
+                pool.add(connection);
+            }
     }
 
 }

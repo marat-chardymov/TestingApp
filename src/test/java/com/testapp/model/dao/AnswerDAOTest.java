@@ -1,5 +1,6 @@
 package com.testapp.model.dao;
 
+import com.testapp.exceptions.AppDAOException;
 import com.testapp.model.dao.impl.AnswerDAO;
 import com.testapp.model.dao.impl.QuestionDAO;
 import com.testapp.model.dao.impl.QuizDAO;
@@ -18,7 +19,7 @@ import static org.junit.Assert.assertNull;
 
 public class AnswerDAOTest {
     @Test
-    public void add() {
+    public void add() throws AppDAOException {
         Subject subject = new Subject("test_answer1_subject");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
@@ -39,7 +40,7 @@ public class AnswerDAOTest {
     }
 
     @Test
-    public void find() {
+    public void find() throws AppDAOException {
         Subject subject = new Subject("test_answer2_subject");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
@@ -63,14 +64,14 @@ public class AnswerDAOTest {
     }
 
     @Test
-    public void findFail() {
+    public void findFail() throws AppDAOException {
         IAnswerDAO answerDAO = AnswerDAO.getInstance();
         Answer answer = answerDAO.find(Long.MAX_VALUE);
         assertNull(answer);
     }
 
     @Test
-    public void update() {
+    public void update() throws AppDAOException {
         Subject subject = new Subject("test_answer3_subject");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
@@ -96,7 +97,7 @@ public class AnswerDAOTest {
     }
 
     @Test
-    public void delete() {
+    public void delete() throws AppDAOException {
         Subject subject = new Subject("test_answer4_subject");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
@@ -120,7 +121,7 @@ public class AnswerDAOTest {
     }
 
     @Test
-    public void findByQuestion(){
+    public void findByQuestion() throws AppDAOException {
         Subject subject = new Subject("test_answer5_subject");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);

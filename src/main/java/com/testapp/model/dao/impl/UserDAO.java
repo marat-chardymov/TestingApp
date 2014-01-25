@@ -1,5 +1,6 @@
 package com.testapp.model.dao.impl;
 
+import com.testapp.exceptions.AppDAOException;
 import com.testapp.model.dao.IUserDAO;
 import com.testapp.model.entities.Quiz;
 import com.testapp.model.entities.Role;
@@ -31,14 +32,11 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
 
     /////////////////////////////////////////////////////////////////////////////////
     @Override
-    public User findByUsername(String username) {
+    public User findByUsername(String username) throws AppDAOException {
         User user = null;
         String findRecordSQL = "SELECT name,surname,email,password,role_name,role_id FROM users JOIN roles WHERE  fk_role_id=role_id AND username=(?)";
         try {
-            //connection = super.getConnection();
-            String url = "jdbc:mysql://localhost:3306/testingappdb";
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            connection = DriverManager.getConnection(url, "root", "sesame");
+            connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
             preparedStatement.setString(1, username);
             resultSet = preparedStatement.executeQuery();
@@ -54,12 +52,6 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
                 user = new User(name, surname, email, password, role);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
             e.printStackTrace();
         } finally {
             super.closeEverything(resultSet, preparedStatement, connection);

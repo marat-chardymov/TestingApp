@@ -1,11 +1,9 @@
 package com.testapp.model.dao.impl;
 
+import com.testapp.exceptions.AppDAOException;
 import com.testapp.model.dao.IQuizDAO;
 import com.testapp.model.entities.Quiz;
-import com.testapp.model.entities.Subject;
-import com.testapp.model.util.MyDataSource;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
     /////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public void add(Quiz quiz) {
+    public void add(Quiz quiz) throws AppDAOException {
         try {
             connection = super.getConnection();
             String insertTableSQL = "INSERT INTO quizzes"
@@ -44,23 +42,23 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
             //we are trying to get id of inserted record
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Creating answer failed, no rows affected.");
+                throw new AppDAOException("Creating quiz failed, no rows affected.");
             }
             resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 quiz.setId(resultSet.getLong(1));
             } else {
-                throw new SQLException("Creating answer failed, no generated key obtained.");
+                throw new AppDAOException("Creating quiz failed, no generated key obtained.");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("add quiz failed", e);
         } finally {
             super.closeEverything(resultSet, preparedStatement, connection);
         }
     }
 
     @Override
-    public Quiz find(Long id) {
+    public Quiz find(Long id) throws AppDAOException {
         Quiz quiz = null;
         String findRecordSQL = "SELECT * FROM quizzes WHERE  quiz_id=?";
         try {
@@ -76,7 +74,7 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
                 quiz.setId(quizId);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("find quiz failed",e);
         } finally {
             super.closeEverything(resultSet, preparedStatement, connection);
         }
@@ -84,7 +82,7 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
     }
 
     @Override
-    public void update(Quiz quiz) {
+    public void update(Quiz quiz) throws AppDAOException {
         String updateRecordSQL = "UPDATE quizzes SET name=? WHERE quiz_id=?";
         try {
             connection = super.getConnection();
@@ -93,14 +91,14 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
             preparedStatement.setLong(2, quiz.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("update quiz failed",e);
         } finally {
             super.closeSC(preparedStatement, connection);
         }
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id) throws AppDAOException {
         String deleteRecordSQL = "DELETE FROM quizzes WHERE quiz_id=?";
         try {
             connection = super.getConnection();
@@ -108,14 +106,14 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("delete quiz failed",e);
         } finally {
             super.closeSC(preparedStatement, connection);
         }
     }
 
     @Override
-    public List<Quiz> findBySubjectId(Long subjectId) {
+    public List<Quiz> findBySubjectId(Long subjectId) throws AppDAOException {
         List<Quiz> quizzes = new ArrayList<Quiz>();
         String findRecordSQL = "SELECT * FROM quizzes WHERE  fk_subject_id=?";
         try {
@@ -132,7 +130,7 @@ public class QuizDAO extends GenericDAO<Quiz> implements IQuizDAO {
                 quizzes.add(quiz);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppDAOException("findBySubjectId method failed",e);
         } finally {
             super.closeEverything(resultSet, preparedStatement, connection);
         }

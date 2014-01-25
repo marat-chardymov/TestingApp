@@ -1,5 +1,6 @@
 package com.testapp.model.dao;
 
+import com.testapp.exceptions.AppDAOException;
 import com.testapp.model.dao.impl.SubjectDAO;
 import com.testapp.model.entities.Subject;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class SubjectDAOTest {
     @Test
-    public void add() {
+    public void add() throws AppDAOException {
         Subject subject = new Subject("test1");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
@@ -19,7 +20,7 @@ public class SubjectDAOTest {
     }
 
     @Test
-    public void find() {
+    public void find() throws AppDAOException {
         Subject subject = new Subject("test2");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
@@ -30,7 +31,7 @@ public class SubjectDAOTest {
     }
 
     @Test
-    public void update() {
+    public void update() throws AppDAOException {
         Subject subject = new Subject("test3");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
@@ -42,7 +43,7 @@ public class SubjectDAOTest {
     }
 
     @Test
-    public void delete() {
+    public void delete() throws AppDAOException {
         Subject subject = new Subject("test4");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
@@ -52,7 +53,7 @@ public class SubjectDAOTest {
     }
 
     @Test
-    public void findAll() {
+    public void findAll() throws AppDAOException {
         Subject subject = new Subject("test5");
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         subjectDAO.add(subject);
