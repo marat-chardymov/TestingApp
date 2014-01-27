@@ -58,7 +58,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @Override
     public Subject find(Long id) throws AppDAOException {
         Subject subject = null;
-        String findRecordSQL = "SELECT * FROM subjects WHERE  subject_id=?";
+        String findRecordSQL = "SELECT * FROM subjects WHERE subject_id=?";
         try {
             connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
@@ -128,5 +128,36 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
             super.closeEverything(resultSet, preparedStatement, connection);
         }
         return subjects;
+    }
+
+    @Override
+    public List<Subject> findPage(int page, int pageSize) throws AppDAOException {
+        String findPageSQL = "SELECT name,subject_id FROM subjects LIMIT ?, ?";
+        List<Subject> subjects = new ArrayList<Subject>();
+        try {
+            connection = super.getConnection();
+            preparedStatement = connection.prepareStatement(findPageSQL);
+            //here we use page-1 because in db pages start from zero
+            preparedStatement.setInt(1, (page - 1) * pageSize);
+            preparedStatement.setInt(2, pageSize);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String subjectName = resultSet.getString("name");
+                Long id = resultSet.getLong("subject_id");
+                Subject subject = new Subject(subjectName);
+                subject.setId(id);
+                subjects.add(subject);
+            }
+        } catch (SQLException e) {
+            throw new AppDAOException("findPage() subjects method failed", e);
+        } finally {
+            super.closeEverything(resultSet, preparedStatement, connection);
+        }
+        return subjects;
+    }
+
+    @Override
+    public int countRecords() throws AppDAOException {
+        return super.countRecords("subjects");
     }
 }

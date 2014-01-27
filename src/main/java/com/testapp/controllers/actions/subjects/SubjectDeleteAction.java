@@ -17,7 +17,8 @@ public class SubjectDeleteAction implements Action {
         Long id = Long.valueOf(request.getParameter("subjectId"));
         try {
             subjectDAO.delete(id);
-            response.sendRedirect(request.getContextPath() + "/jsp/subjects"); // We'd like to fire redirect in case of a view change as result of the action (PRG pattern).
+            int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+            response.sendRedirect(request.getContextPath() + "/jsp/subjects"+"?page="+currentPage); // We'd like to fire redirect in case of a view change as result of the action (PRG pattern).
         } catch (AppDAOException e) {
             throw new AppActionException("AppDAOException in SubjectDeleteAction", e);
         } catch (IOException e) {

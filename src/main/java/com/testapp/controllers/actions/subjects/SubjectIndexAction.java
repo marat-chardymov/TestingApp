@@ -16,11 +16,23 @@ import java.util.List;
 public class SubjectIndexAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws AppActionException {
+        int pageSize = 5;
+        int currentPage = 1;
+        if (request.getParameter("page") != null) {
+            currentPage = Integer.parseInt(request.getParameter("page"));
+        }
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
-        List<Subject> subjectList = null;
         try {
-            subjectList = subjectDAO.findAll();
+            //set subjectList
+            List<Subject> subjectList = subjectDAO.findPage(currentPage, pageSize);
             request.setAttribute("subjectList", subjectList);
+
+            //set attributes for pagination
+            int numOfRecords = subjectDAO.countRecords();
+            int numOfPages = (int) Math.ceil((double) numOfRecords / pageSize);
+            request.setAttribute("numOfPages", numOfPages);
+            request.setAttribute("currentPage", currentPage);
+
             request.getRequestDispatcher("subjects.jsp").forward(request, response);
         } catch (AppDAOException e) {
             throw new AppActionException("AppDAOException in SubjectIndexAction", e);

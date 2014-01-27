@@ -22,7 +22,8 @@ public class SubjectAddAction implements Action {
         ISubjectDAO subjectDAO = SubjectDAO.getInstance();
         try {
             subjectDAO.add(subject);
-            response.sendRedirect(request.getContextPath() + "/jsp/subjects");
+            int numOfPages = Integer.parseInt(request.getParameter("numOfPages"));
+            response.sendRedirect(request.getContextPath() + "/jsp/subjects"+"?page="+numOfPages);
         } catch (AppDAOException e) {
             throw new AppActionException("AppDAOException in SubjectAddAction", e);
         } catch (IOException e) {

@@ -16,8 +16,7 @@ public interface IGenericDao<T> {
      * entity instance is contained in the persistence context, it is returned
      * from there.
      *
-     * @param id
-     *            - primary key
+     * @param id - primary key
      * @return the found entity instance or null if the entity does not exist
      */
     T find(Long id) throws AppDAOException;
@@ -34,9 +33,10 @@ public interface IGenericDao<T> {
     /**
      * Remove the entity instance.
      *
-     * @param id
-     *            - primary key
+     * @param id - primary key
      */
     void delete(Long id) throws AppDAOException;
+
+    public int countRecords(String table) throws AppDAOException;
 }
 

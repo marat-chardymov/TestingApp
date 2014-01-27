@@ -44,14 +44,14 @@ public abstract class GenericDAO<T> implements IGenericDao<T> {
             try {
                 stmt.close();
             } catch (SQLException e) {
-                 throw new AppDAOException("can't close statement",e);
+                throw new AppDAOException("can't close statement", e);
             }
         }
         if (con != null) {
             try {
                 MyConnectionPool.getInstance().release(con);
             } catch (AppConnectionException e) {
-                throw new AppDAOException("can't release connection",e);
+                throw new AppDAOException("can't release connection", e);
             }
         }
     }
@@ -60,7 +60,26 @@ public abstract class GenericDAO<T> implements IGenericDao<T> {
         try {
             return MyConnectionPool.getInstance().getConnection();
         } catch (AppConnectionException e) {
-            throw new AppDAOException("can't get connection",e);
+            throw new AppDAOException("can't get connection", e);
         }
+    }
+
+    @Override
+    public int countRecords(String table) throws AppDAOException {
+        String countSQL = "SELECT COUNT(*) FROM ";
+        int counter = 0;
+        try {
+            connection = getConnection();
+            Statement st = connection.createStatement();
+            resultSet = st.executeQuery(countSQL+table);
+            if (resultSet.next()) {
+                counter = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new AppDAOException("countRecords() method failed", e);
+        } finally {
+            closeEverything(resultSet, preparedStatement, connection);
+        }
+        return counter;
     }
 }
