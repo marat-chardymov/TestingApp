@@ -2,7 +2,7 @@ package com.testapp.model.dao;
 
 import com.testapp.exceptions.AppDAOException;
 
-public interface IGenericDao<T> {
+public interface IGenericDAO<T> {
 
     /**
      * Make an instance managed and persistent.

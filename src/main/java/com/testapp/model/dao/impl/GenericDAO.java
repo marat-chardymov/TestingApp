@@ -2,12 +2,12 @@ package com.testapp.model.dao.impl;
 
 import com.testapp.exceptions.AppConnectionException;
 import com.testapp.exceptions.AppDAOException;
-import com.testapp.model.dao.IGenericDao;
+import com.testapp.model.dao.IGenericDAO;
 import com.testapp.model.util.MyConnectionPool;
 
 import java.sql.*;
 
-public abstract class GenericDAO<T> implements IGenericDao<T> {
+public abstract class GenericDAO<T> implements IGenericDAO<T> {
 
     protected Connection connection = null;
     protected PreparedStatement preparedStatement = null;

@@ -6,7 +6,7 @@ public class User extends Entity {
     private String name;
     private String surname;
     private String email;
-    private List<QuizResults> quizResultsList;
+    private List<QuizResult> quizResultList;
     private String password;
     private Role role;
 
@@ -18,12 +18,12 @@ public class User extends Entity {
         this.role = role;
     }
 
-    public List<QuizResults> getQuizResultsList() {
-        return quizResultsList;
+    public List<QuizResult> getQuizResultList() {
+        return quizResultList;
     }
 
-    public void setQuizResultsList(List<QuizResults> quizResultsList) {
-        this.quizResultsList = quizResultsList;
+    public void setQuizResultList(List<QuizResult> quizResultList) {
+        this.quizResultList = quizResultList;
     }
 
     public String getName() {

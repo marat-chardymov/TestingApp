@@ -1,13 +1,13 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-	      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5">
+	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
     <display-name>Testing App</display-name>
 
     <servlet>
         <servlet-name>FrontController</servlet-name>
-        <servlet-class>com.testapp.controllers.FrontController</servlet-class>
+        <servlet-class>com.testapp.controller.FrontController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FrontController</servlet-name>
@@ -61,11 +61,11 @@
 
     <filter>
         <filter-name>AuthorizationFilter</filter-name>
-        <filter-class>com.testapp.controllers.filters.AuthorizationFilter</filter-class>
+        <filter-class>com.testapp.controller.filters.AuthorizationFilter</filter-class>
     </filter>
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
-        <filter-class>com.testapp.controllers.filters.CharacterEncodingFilter</filter-class>
+        <filter-class>com.testapp.controller.filters.CharacterEncodingFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -78,6 +78,6 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>com.testapp.controllers.listeners.PoolInitServletContextListener</listener-class>
+        <listener-class>com.testapp.controller.listeners.PoolInitServletContextListener</listener-class>
     </listener>
 </web-app>

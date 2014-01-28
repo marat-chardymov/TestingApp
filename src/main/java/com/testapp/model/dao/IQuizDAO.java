@@ -2,10 +2,9 @@ package com.testapp.model.dao;
 
 import com.testapp.exceptions.AppDAOException;
 import com.testapp.model.entities.Quiz;
-import com.testapp.model.entities.Subject;
 
 import java.util.List;
 
-public interface IQuizDAO extends IGenericDao<Quiz> {
+public interface IQuizDAO extends IGenericDAO<Quiz> {
     public List<Quiz> findBySubjectId(Long subjectId) throws AppDAOException;
 }

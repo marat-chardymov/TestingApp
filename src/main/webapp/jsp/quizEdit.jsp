@@ -21,7 +21,7 @@
         <div class="container">
             <form name="questionForm" class="form-horizontal" ng-submit="addQuestion()">
                 <fmt:message key="quizEdit.qHolder" var="qHolder"/>
-                <input type="text" name="questionText" ng-model="formQuestionText" ng-model-instantly
+                <input type="text" name="questionText" class="input-large " ng-model="formQuestionText" ng-model-instantly
                        placeholder="${qHolder}" required>
                 <button class="btn" id="addQuestion" type="submit" value="add" ng-disabled="!questionForm.$valid"><i
                         class="icon-plus"></i> <fmt:message
@@ -36,8 +36,8 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th class="span2"><h3><fmt:message key="quizEdit.isRight"/></h3></th>
-                        <th class="span6"><h3>{{question.content}}</h3></th>
+                        <th class="span1"><h4><fmt:message key="quizEdit.isRight"/></h4></th>
+                        <th class="span6"><h4>{{question.content}}</h4></th>
                         <th class="span2">
                             <button ng-click="deleteQuestion(question)" class="btn"><i class="icon-remove"></i>
                                 <fmt:message key="buttons.delete"/>

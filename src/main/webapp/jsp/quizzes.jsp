@@ -12,15 +12,20 @@
             </button>
         </form>
     </c:if>
-    <table class="table table-hover">
-        <!--Here should be jstl forEach-->
+    <table class="table table-hover" style="width:800px">
         <c:forEach var="quiz" items="${quizList}">
             <tr>
                 <td>${quiz.name}</td>
-                <td><a href="quizRun?quiz_id=${quiz.id}" class="btn btn-success"><i class="icon-play"></i> <fmt:message key="buttons.startQuiz"/></a>
+                <td><a href="quizRun?quiz_id=${quiz.id}" class="btn btn-success"><i class="icon-play"></i> <fmt:message
+                        key="buttons.startQuiz"/></a>
+                </td>
+                <td>
+                    <a href="quizzes/results?quiz_id=${quiz.id}" class="btn"><i class="icon-list-alt"></i> <fmt:message
+                            key="quizzes.results"/></a>
                 </td>
                 <c:if test="${user.role.roleName ne 'student'}">
-                    <td><a href="quizzes/edit?quiz_id=${quiz.id}" class="btn"><i class="icon-pencil"></i> <fmt:message key="buttons.edit"/></a></td>
+                    <td><a href="quizzes/edit?quiz_id=${quiz.id}" class="btn"><i class="icon-pencil"></i> <fmt:message
+                            key="buttons.edit"/></a></td>
                     <td>
                         <form action="quizzes/delete" method="post">
                             <input type="hidden" name="subject_id" value="${param.subject_id}">

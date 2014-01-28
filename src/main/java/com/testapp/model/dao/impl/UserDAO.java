@@ -34,7 +34,7 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
     @Override
     public User findByUsername(String username) throws AppDAOException {
         User user = null;
-        String findRecordSQL = "SELECT name,surname,email,password,role_name,role_id FROM users JOIN roles WHERE  fk_role_id=role_id AND username=(?)";
+        String findRecordSQL = "SELECT name,surname,email,password,role_name,role_id,user_id FROM users JOIN roles WHERE  fk_role_id=role_id AND username=(?)";
         try {
             connection = super.getConnection();
             preparedStatement = connection.prepareStatement(findRecordSQL);
@@ -50,6 +50,8 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
                 Long role_id = resultSet.getLong("role_id");
                 role.setId(role_id);
                 user = new User(name, surname, email, password, role);
+                Long id=resultSet.getLong("user_id");
+                user.setId(id);
             }
         } catch (SQLException e) {
             e.printStackTrace();

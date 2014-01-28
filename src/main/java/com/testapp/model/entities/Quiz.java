@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Quiz extends Entity {
     private String name;
-    private List<QuizResults> quizResultsList;
+    private List<QuizResult> quizResultList;
     private List<Question> questions;
     private Long subjectId;
 
@@ -22,12 +22,12 @@ public class Quiz extends Entity {
         this.name = name;
     }
 
-    public List<QuizResults> getQuizResultsList() {
-        return quizResultsList;
+    public List<QuizResult> getQuizResultList() {
+        return quizResultList;
     }
 
-    public void setQuizResultsList(List<QuizResults> quizResultsList) {
-        this.quizResultsList = quizResultsList;
+    public void setQuizResultList(List<QuizResult> quizResultList) {
+        this.quizResultList = quizResultList;
     }
 
     public List<Question> getQuestions() {
